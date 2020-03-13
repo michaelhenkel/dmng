@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	dmPb "github.com/michaelhenkel/dmng/protos"
+	dmPb "github.com/michaelhenkel/dmng/devicemanager/protos"
 	"google.golang.org/grpc"
 )
 
