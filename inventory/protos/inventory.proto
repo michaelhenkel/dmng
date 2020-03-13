@@ -4,5 +4,5 @@ option go_package = "github.com/michaelhenkel/dmng/inventory/protos/inventory";
 
 package inventory;
 
-import "devicemanager/interface.proto";
+import "devicemanager/protos/device_manager.proto";
 

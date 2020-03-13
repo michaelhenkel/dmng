@@ -6,20 +6,20 @@ import (
 	"log"
 	"net"
 
-	dmPb "github.com/michaelhenkel/dmng/devicemanager/protos"
+	invPb "github.com/michaelhenkel/dmng/inventory/protos"
 	"google.golang.org/grpc"
 )
 
 var (
-	port = flag.Int("port", 10000, "The server port")
+	port = flag.Int("port", 10001, "The server port")
 )
 
-type deviceManagerServer struct {
-	dmPb.UnimplementedDeviceManagerServer
+type inventoryServer struct {
+	dmPb.UnimplementedInventoryServer
 }
 
-func newServer() *deviceManagerServer {
-	s := &deviceManagerServer{}
+func newServer() *inventoryServer {
+	s := &inventoryServer{}
 	return s
 }
 
@@ -31,7 +31,7 @@ func main() {
 	}
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
-	dmPb.RegisterDeviceManagerServer(grpcServer, newServer())
+	invPb.RegisterInventoryServer(grpcServer, newServer())
 	grpcServer.Serve(lis)
 
 }

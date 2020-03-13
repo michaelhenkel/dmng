@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/michaelhenkel/dmng/devicemanager/protos/devicemanager";
+option go_package = "github.com/michaelhenkel/dmng/devicemanager/protos";
 
 package devicemanager;
 
