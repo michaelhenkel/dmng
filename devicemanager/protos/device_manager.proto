@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "github.com/michaelhenkel/devicemanager/protos/devicemanager";
+
+package devicemanager;
+
+service DeviceManager{
+    rpc GetInterface(Interface) returns (Interface) {}
+    rpc ListInterfaces(Filter) returns (stream Interface) {}
+    rpc CreateInterface(Interface) returns (stream Result) {} 
+    rpc DeleteInterface(Interface) returns (stream Result) {} 
+}
+
+message Interface {
+    string name = 1;
+    string ipv4 = 2;
+    string ipv6 = 3;
+    Interface parent = 4;
+    string uuid = 5;
+}
+
+message Result {
+    bool received = 1;
+    bool applied = 2;
+    string msg = 3;
+}
+
+message Filter {
+    Interface parent = 1;
+}
+
