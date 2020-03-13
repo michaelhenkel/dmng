@@ -4,9 +4,13 @@
 package protos
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	protos "github.com/michaelhenkel/dmng/devicemanager/protos"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -241,4 +245,274 @@ var fileDescriptor_7173caedb7c6ae96 = []byte{
 	0x45, 0x49, 0x91, 0xc7, 0x39, 0x4f, 0xd6, 0x0c, 0xc5, 0x1a, 0xe5, 0x1b, 0x8a, 0x38, 0xcd, 0x65,
 	0x16, 0xb7, 0x54, 0xfd, 0xa0, 0x56, 0xae, 0xfd, 0xce, 0xbe, 0x02, 0x00, 0x00, 0xff, 0xff, 0x36,
 	0xba, 0xa2, 0xc2, 0x8b, 0x02, 0x00, 0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// InventoryClient is the client API for Inventory service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type InventoryClient interface {
+	GetDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
+	ListDevices(ctx context.Context, in *Filter, opts ...grpc.CallOption) (Inventory_ListDevicesClient, error)
+	CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (Inventory_CreateDeviceClient, error)
+	DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (Inventory_DeleteDeviceClient, error)
+}
+
+type inventoryClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewInventoryClient(cc *grpc.ClientConn) InventoryClient {
+	return &inventoryClient{cc}
+}
+
+func (c *inventoryClient) GetDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error) {
+	out := new(Device)
+	err := c.cc.Invoke(ctx, "/inventory.Inventory/GetDevice", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inventoryClient) ListDevices(ctx context.Context, in *Filter, opts ...grpc.CallOption) (Inventory_ListDevicesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Inventory_serviceDesc.Streams[0], "/inventory.Inventory/ListDevices", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &inventoryListDevicesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Inventory_ListDevicesClient interface {
+	Recv() (*Device, error)
+	grpc.ClientStream
+}
+
+type inventoryListDevicesClient struct {
+	grpc.ClientStream
+}
+
+func (x *inventoryListDevicesClient) Recv() (*Device, error) {
+	m := new(Device)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *inventoryClient) CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (Inventory_CreateDeviceClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Inventory_serviceDesc.Streams[1], "/inventory.Inventory/CreateDevice", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &inventoryCreateDeviceClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Inventory_CreateDeviceClient interface {
+	Recv() (*Result, error)
+	grpc.ClientStream
+}
+
+type inventoryCreateDeviceClient struct {
+	grpc.ClientStream
+}
+
+func (x *inventoryCreateDeviceClient) Recv() (*Result, error) {
+	m := new(Result)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *inventoryClient) DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (Inventory_DeleteDeviceClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Inventory_serviceDesc.Streams[2], "/inventory.Inventory/DeleteDevice", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &inventoryDeleteDeviceClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Inventory_DeleteDeviceClient interface {
+	Recv() (*Result, error)
+	grpc.ClientStream
+}
+
+type inventoryDeleteDeviceClient struct {
+	grpc.ClientStream
+}
+
+func (x *inventoryDeleteDeviceClient) Recv() (*Result, error) {
+	m := new(Result)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// InventoryServer is the server API for Inventory service.
+type InventoryServer interface {
+	GetDevice(context.Context, *Device) (*Device, error)
+	ListDevices(*Filter, Inventory_ListDevicesServer) error
+	CreateDevice(*Device, Inventory_CreateDeviceServer) error
+	DeleteDevice(*Device, Inventory_DeleteDeviceServer) error
+}
+
+// UnimplementedInventoryServer can be embedded to have forward compatible implementations.
+type UnimplementedInventoryServer struct {
+}
+
+func (*UnimplementedInventoryServer) GetDevice(ctx context.Context, req *Device) (*Device, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDevice not implemented")
+}
+func (*UnimplementedInventoryServer) ListDevices(req *Filter, srv Inventory_ListDevicesServer) error {
+	return status.Errorf(codes.Unimplemented, "method ListDevices not implemented")
+}
+func (*UnimplementedInventoryServer) CreateDevice(req *Device, srv Inventory_CreateDeviceServer) error {
+	return status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
+}
+func (*UnimplementedInventoryServer) DeleteDevice(req *Device, srv Inventory_DeleteDeviceServer) error {
+	return status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
+}
+
+func RegisterInventoryServer(s *grpc.Server, srv InventoryServer) {
+	s.RegisterService(&_Inventory_serviceDesc, srv)
+}
+
+func _Inventory_GetDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Device)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InventoryServer).GetDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/inventory.Inventory/GetDevice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InventoryServer).GetDevice(ctx, req.(*Device))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Inventory_ListDevices_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Filter)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(InventoryServer).ListDevices(m, &inventoryListDevicesServer{stream})
+}
+
+type Inventory_ListDevicesServer interface {
+	Send(*Device) error
+	grpc.ServerStream
+}
+
+type inventoryListDevicesServer struct {
+	grpc.ServerStream
+}
+
+func (x *inventoryListDevicesServer) Send(m *Device) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _Inventory_CreateDevice_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Device)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(InventoryServer).CreateDevice(m, &inventoryCreateDeviceServer{stream})
+}
+
+type Inventory_CreateDeviceServer interface {
+	Send(*Result) error
+	grpc.ServerStream
+}
+
+type inventoryCreateDeviceServer struct {
+	grpc.ServerStream
+}
+
+func (x *inventoryCreateDeviceServer) Send(m *Result) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _Inventory_DeleteDevice_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Device)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(InventoryServer).DeleteDevice(m, &inventoryDeleteDeviceServer{stream})
+}
+
+type Inventory_DeleteDeviceServer interface {
+	Send(*Result) error
+	grpc.ServerStream
+}
+
+type inventoryDeleteDeviceServer struct {
+	grpc.ServerStream
+}
+
+func (x *inventoryDeleteDeviceServer) Send(m *Result) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+var _Inventory_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "inventory.Inventory",
+	HandlerType: (*InventoryServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetDevice",
+			Handler:    _Inventory_GetDevice_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ListDevices",
+			Handler:       _Inventory_ListDevices_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "CreateDevice",
+			Handler:       _Inventory_CreateDevice_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "DeleteDevice",
+			Handler:       _Inventory_DeleteDevice_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "inventory.proto",
 }

@@ -4,8 +4,12 @@
 package protos
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -216,4 +220,274 @@ var fileDescriptor_bcbdd1ffbcbe4fbb = []byte{
 	0x2e, 0x50, 0x7e, 0x62, 0x1a, 0xc4, 0x42, 0x26, 0xc1, 0xd6, 0x97, 0x81, 0xf9, 0x21, 0xf3, 0xb9,
 	0x6b, 0x9e, 0x37, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x16, 0x6a, 0xb4, 0xde, 0xb0, 0x02, 0x00,
 	0x00,
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// DeviceManagerClient is the client API for DeviceManager service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type DeviceManagerClient interface {
+	GetInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Interface, error)
+	ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (DeviceManager_ListInterfacesClient, error)
+	CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error)
+	DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_DeleteInterfaceClient, error)
+}
+
+type deviceManagerClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewDeviceManagerClient(cc *grpc.ClientConn) DeviceManagerClient {
+	return &deviceManagerClient{cc}
+}
+
+func (c *deviceManagerClient) GetInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Interface, error) {
+	out := new(Interface)
+	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/GetInterface", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *deviceManagerClient) ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (DeviceManager_ListInterfacesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[0], "/devicemanager.DeviceManager/ListInterfaces", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &deviceManagerListInterfacesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type DeviceManager_ListInterfacesClient interface {
+	Recv() (*Interface, error)
+	grpc.ClientStream
+}
+
+type deviceManagerListInterfacesClient struct {
+	grpc.ClientStream
+}
+
+func (x *deviceManagerListInterfacesClient) Recv() (*Interface, error) {
+	m := new(Interface)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *deviceManagerClient) CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[1], "/devicemanager.DeviceManager/CreateInterface", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &deviceManagerCreateInterfaceClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type DeviceManager_CreateInterfaceClient interface {
+	Recv() (*Result, error)
+	grpc.ClientStream
+}
+
+type deviceManagerCreateInterfaceClient struct {
+	grpc.ClientStream
+}
+
+func (x *deviceManagerCreateInterfaceClient) Recv() (*Result, error) {
+	m := new(Result)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *deviceManagerClient) DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_DeleteInterfaceClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[2], "/devicemanager.DeviceManager/DeleteInterface", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &deviceManagerDeleteInterfaceClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type DeviceManager_DeleteInterfaceClient interface {
+	Recv() (*Result, error)
+	grpc.ClientStream
+}
+
+type deviceManagerDeleteInterfaceClient struct {
+	grpc.ClientStream
+}
+
+func (x *deviceManagerDeleteInterfaceClient) Recv() (*Result, error) {
+	m := new(Result)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// DeviceManagerServer is the server API for DeviceManager service.
+type DeviceManagerServer interface {
+	GetInterface(context.Context, *Interface) (*Interface, error)
+	ListInterfaces(*Filter, DeviceManager_ListInterfacesServer) error
+	CreateInterface(*Interface, DeviceManager_CreateInterfaceServer) error
+	DeleteInterface(*Interface, DeviceManager_DeleteInterfaceServer) error
+}
+
+// UnimplementedDeviceManagerServer can be embedded to have forward compatible implementations.
+type UnimplementedDeviceManagerServer struct {
+}
+
+func (*UnimplementedDeviceManagerServer) GetInterface(ctx context.Context, req *Interface) (*Interface, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInterface not implemented")
+}
+func (*UnimplementedDeviceManagerServer) ListInterfaces(req *Filter, srv DeviceManager_ListInterfacesServer) error {
+	return status.Errorf(codes.Unimplemented, "method ListInterfaces not implemented")
+}
+func (*UnimplementedDeviceManagerServer) CreateInterface(req *Interface, srv DeviceManager_CreateInterfaceServer) error {
+	return status.Errorf(codes.Unimplemented, "method CreateInterface not implemented")
+}
+func (*UnimplementedDeviceManagerServer) DeleteInterface(req *Interface, srv DeviceManager_DeleteInterfaceServer) error {
+	return status.Errorf(codes.Unimplemented, "method DeleteInterface not implemented")
+}
+
+func RegisterDeviceManagerServer(s *grpc.Server, srv DeviceManagerServer) {
+	s.RegisterService(&_DeviceManager_serviceDesc, srv)
+}
+
+func _DeviceManager_GetInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Interface)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceManagerServer).GetInterface(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicemanager.DeviceManager/GetInterface",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagerServer).GetInterface(ctx, req.(*Interface))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DeviceManager_ListInterfaces_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Filter)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DeviceManagerServer).ListInterfaces(m, &deviceManagerListInterfacesServer{stream})
+}
+
+type DeviceManager_ListInterfacesServer interface {
+	Send(*Interface) error
+	grpc.ServerStream
+}
+
+type deviceManagerListInterfacesServer struct {
+	grpc.ServerStream
+}
+
+func (x *deviceManagerListInterfacesServer) Send(m *Interface) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _DeviceManager_CreateInterface_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Interface)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DeviceManagerServer).CreateInterface(m, &deviceManagerCreateInterfaceServer{stream})
+}
+
+type DeviceManager_CreateInterfaceServer interface {
+	Send(*Result) error
+	grpc.ServerStream
+}
+
+type deviceManagerCreateInterfaceServer struct {
+	grpc.ServerStream
+}
+
+func (x *deviceManagerCreateInterfaceServer) Send(m *Result) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _DeviceManager_DeleteInterface_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Interface)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(DeviceManagerServer).DeleteInterface(m, &deviceManagerDeleteInterfaceServer{stream})
+}
+
+type DeviceManager_DeleteInterfaceServer interface {
+	Send(*Result) error
+	grpc.ServerStream
+}
+
+type deviceManagerDeleteInterfaceServer struct {
+	grpc.ServerStream
+}
+
+func (x *deviceManagerDeleteInterfaceServer) Send(m *Result) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+var _DeviceManager_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "devicemanager.DeviceManager",
+	HandlerType: (*DeviceManagerServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetInterface",
+			Handler:    _DeviceManager_GetInterface_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ListInterfaces",
+			Handler:       _DeviceManager_ListInterfaces_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "CreateInterface",
+			Handler:       _DeviceManager_CreateInterface_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "DeleteInterface",
+			Handler:       _DeviceManager_DeleteInterface_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "device_manager.proto",
 }

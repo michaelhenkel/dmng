@@ -2,7 +2,7 @@ all: dm_proto inv_proto dm_client inv_client dm_server inv_server dm_server_linu
 dm: dm_proto dm_client dm_server dm_server_linux dm_client_linux
 inv: inv_proto inv_client inv_server inv_server_linux inv_client_linux
 dm_proto:
-	(cd devicemanager; protoc -I protos -I ../ --go_out=:${GOPATH}/src protos/device_manager.proto)
+	(cd devicemanager; protoc -I protos -I ../ --go_out=plugins=grpc:${GOPATH}/src protos/device_manager.proto)
 dm_server:
 	(cd devicemanager/server; go build)
 dm_server_linux:
@@ -12,7 +12,7 @@ dm_client:
 dm_client_linux:
 	(cd devicemanager/client; GOOS=linux go build -o client_linux)
 inv_proto:
-	(cd inventory; protoc -I protos -I ../ --go_out=:${GOPATH}/src protos/inventory.proto)
+	(cd inventory; protoc -I protos -I ../ --go_out=plugins=grpc:${GOPATH}/src protos/inventory.proto)
 inv_server:
 	(cd inventory/server; go build)
 inv_server_linux:

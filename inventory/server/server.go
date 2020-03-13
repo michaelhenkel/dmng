@@ -15,7 +15,7 @@ var (
 )
 
 type inventoryServer struct {
-	dmPb.UnimplementedInventoryServer
+	invPb.UnimplementedInventoryServer
 }
 
 func newServer() *inventoryServer {
