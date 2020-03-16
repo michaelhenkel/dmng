@@ -21,5 +21,5 @@ inv_client:
 	(cd inventory/client; go build)
 inv_client_linux:
 	(cd inventory/client; GOOS=linux go build -o client_linux)
-container:
-	docker build -t michaelhenkel/remotexec . && docker push michaelhenkel/remotexec
+#container:
+#	docker build -t michaelhenkel/remotexec . && docker push michaelhenkel/remotexec

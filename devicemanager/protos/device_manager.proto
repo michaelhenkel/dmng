@@ -5,10 +5,13 @@ option go_package = "github.com/michaelhenkel/dmng/devicemanager/protos";
 package devicemanager;
 
 service DeviceManager{
-    rpc GetInterface(Interface) returns (Interface) {}
+    rpc ReadInterface(Interface) returns (Interface) {}
     rpc ListInterfaces(Filter) returns (stream Interface) {}
     rpc CreateInterface(Interface) returns (stream Result) {} 
     rpc DeleteInterface(Interface) returns (stream Result) {} 
+    rpc CreateDevice(Device) returns (stream Result) {}
+    rpc DeleteDevice(Device) returns (stream Result) {}
+    rpc ReadDevice(Device) returns (stream Result) {} 
 }
 
 message Interface {
@@ -17,6 +20,12 @@ message Interface {
     string ipv6 = 3;
     Interface parent = 4;
     string uuid = 5;
+    Device device = 6;
+}
+
+message Device {
+    string name = 1;
+    string uuid = 2;
 }
 
 message Result {

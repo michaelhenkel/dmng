@@ -3,7 +3,6 @@ module github.com/michaelhenkel/dmng/inventory/server
 go 1.13
 
 require (
-	github.com/michaelhenkel/dmng/devicemanager v0.0.0-20200313215159-064f044801a0 // indirect
-	github.com/michaelhenkel/dmng/inventory v0.0.0-20200313223843-78c33a6b1313
+	github.com/michaelhenkel/dmng v0.0.0-20200313224914-3ef143eb02e7
 	google.golang.org/grpc v1.28.0
 )
