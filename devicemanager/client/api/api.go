@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"io"
 	"log"
 	"time"
 
@@ -26,7 +27,7 @@ type Connection struct {
 	ServerAddress string
 }
 
-func (c *Connection) CreateInterface(intfList []*pbDM.Interface) (error) {
+func (c *Connection) CreateInterface(intfList []*pbDM.Interface) error {
 	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
 	defer conn.Close()
 	defer cancel()
@@ -34,11 +35,41 @@ func (c *Connection) CreateInterface(intfList []*pbDM.Interface) (error) {
 	if err != nil {
 		return err
 	}
-	for _, intf := range intfList{
-		if err := stream.Send(intf); err != nil {
-			return err
+	done := make(chan bool)
+	go func() {
+		for _, intf := range intfList {
+			if err := stream.Send(intf); err != nil {
+				log.Fatalf("can not send %v", err)
+			}
 		}
-	}
+		if err := stream.CloseSend(); err != nil {
+			log.Println(err)
+		}
+	}()
+
+	go func() {
+		for {
+			result, err := stream.Recv()
+			if err == io.EOF {
+				close(done)
+				return
+			}
+			if err != nil {
+				log.Fatalf("can not receive %v", err)
+			}
+			log.Printf("new result %+v received", result)
+		}
+	}()
+
+	go func() {
+		<-ctx.Done()
+		if err := ctx.Err(); err != nil {
+			log.Println(err)
+		}
+		close(done)
+	}()
+
+	<-done
 	return nil
 }
 
@@ -55,17 +86,3 @@ func (c *Connection) DeleteInterface(intf *pbDM.Interface) (*pbDM.Result, error)
 	defer cancel()
 	return pbDMClient.DeleteInterface(ctx, intf)
 }
-
-/*
-func (e *Executor) GetFileContent(filePath string) (*string, error) {
-	socket := e.Socket
-	c, ctx, conn, cancel := newClient(&socket)
-	defer conn.Close()
-	defer cancel()
-	fileResult, err := c.GetFileContent(ctx, &protos.FilePath{Path: filePath})
-	if err != nil {
-		return nil, err
-	}
-	return &fileResult.Result, nil
-}
-*/

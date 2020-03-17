@@ -1,1 +1,1 @@
-{"Interfaces":null,"Devices":[{"name":"device1"}]}
+{"Interfaces":[{"name":"eth2","device":{"name":"device1"}}],"Devices":[{"name":"device1"}]}

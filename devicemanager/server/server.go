@@ -4,8 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net"
+	"sync"
 
 	"github.com/michaelhenkel/dmng/database"
 	"google.golang.org/grpc"
@@ -22,6 +24,7 @@ var (
 
 type deviceManagerServer struct {
 	dmPB.UnimplementedDeviceManagerServer
+	mu sync.Mutex
 }
 
 func newServer() *deviceManagerServer {
@@ -37,31 +40,59 @@ func (d *deviceManagerServer) ReadDevice(ctx context.Context, device *dmPB.Devic
 	return device, nil
 }
 
+func serialize(intf *dmPB.Interface) string {
+	return fmt.Sprintf("%s", intf.Name)
+}
+
 func (d *deviceManagerServer) CreateInterface(stream dmPB.DeviceManager_CreateInterfaceServer) error {
-	dbClient := database.NewDBClient()
-	result := &dmPB.Result{}
+	ctx := stream.Context()
 	for {
-		intf, err := stream.Recv()
-		if err != nil {
-			return err
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
 		}
+		dbClient := database.NewDBClient()
+		intf, err := stream.Recv()
+		if err == io.EOF {
+			// return will close stream from server side
+			log.Println("exit")
+			return nil
+		}
+		if err != nil {
+			log.Printf("receive error %v", err)
+			continue
+		}
+		fmt.Printf("received intf: %s\n", intf.Name)
 		if err := dbClient.ReadInterface(intf); err == nil {
-			result.Msg = "failed"
-			st := status.New(codes.AlreadyExists, "Interface already exists")
-			return st.Err()
+			//st := status.New(codes.AlreadyExists, "Interface already exists")
+			log.Println("object already exists")
+			//return st.Err()
+			result := &dmPB.Result{
+				Received: true,
+				Msg:      "failed",
+			}
+			if err := stream.Send(result); err != nil {
+				log.Printf("send error %v", err)
+			}
+			continue
+			//return err
 		}
 		intf.Device = &dmPB.Device{
 			Name: *name,
 		}
 		if err := dbClient.CreateInterface(intf); err != nil {
 			fmt.Println(err)
-			result.Msg = "failed"
+			return err
 		}
-		result.Msg = "success"
+		result := &dmPB.Result{
+			Received: true,
+			Msg:      "success",
+		}
+		if err := stream.Send(result); err != nil {
+			log.Printf("send error %v", err)
+		}
 	}
-
-
-	return nil
 }
 
 func (d *deviceManagerServer) ReadInterface(ctx context.Context, intf *dmPB.Interface) (*dmPB.Result, error) {
