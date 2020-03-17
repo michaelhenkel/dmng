@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"strings"
 
 	deviceApi "github.com/michaelhenkel/dmng/devicemanager/client/api"
 	dmPB "github.com/michaelhenkel/dmng/devicemanager/protos"
@@ -33,10 +34,15 @@ func main() {
 		ServerAddress: *serverAddr,
 	}
 	if *addport != "" {
-		intf := &dmPB.Interface{
-			Name: *addport,
+		var intfList []*dmPB.Interface
+		intfSlice := strings.Split(*addport,",")
+		for _, intf := range intfSlice{
+		_intf := &dmPB.Interface{
+			Name: intf,
 		}
-		_, err := deviceClient.CreateInterface(intf)
+		intfList = append(intfList, _intf)
+	}
+		err := deviceClient.CreateInterface(intfList)
 		if err != nil {
 			log.Fatalln(err)
 		}

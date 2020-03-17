@@ -37,22 +37,30 @@ func (d *deviceManagerServer) ReadDevice(ctx context.Context, device *dmPB.Devic
 	return device, nil
 }
 
-func (d *deviceManagerServer) CreateInterface(intf *dmPB.Interface, cl dmPB.DeviceManager_CreateInterfaceServer) error {
+func (d *deviceManagerServer) CreateInterface(stream dmPB.DeviceManager_CreateInterfaceServer) error {
 	dbClient := database.NewDBClient()
 	result := &dmPB.Result{}
-	if err := dbClient.ReadInterface(intf); err == nil {
-		result.Msg = "failed"
-		st := status.New(codes.AlreadyExists, "Interface already exists")
-		return st.Err()
+	for {
+		intf, err := stream.Recv()
+		if err != nil {
+			return err
+		}
+		if err := dbClient.ReadInterface(intf); err == nil {
+			result.Msg = "failed"
+			st := status.New(codes.AlreadyExists, "Interface already exists")
+			return st.Err()
+		}
+		intf.Device = &dmPB.Device{
+			Name: *name,
+		}
+		if err := dbClient.CreateInterface(intf); err != nil {
+			fmt.Println(err)
+			result.Msg = "failed"
+		}
+		result.Msg = "success"
 	}
-	intf.Device = &dmPB.Device{
-		Name: *name,
-	}
-	if err := dbClient.CreateInterface(intf); err != nil {
-		fmt.Println(err)
-		result.Msg = "failed"
-	}
-	result.Msg = "success"
+
+
 	return nil
 }
 

@@ -26,11 +26,20 @@ type Connection struct {
 	ServerAddress string
 }
 
-func (c *Connection) CreateInterface(intf *pbDM.Interface) (pbDM.DeviceManager_CreateInterfaceClient, error) {
+func (c *Connection) CreateInterface(intfList []*pbDM.Interface) (error) {
 	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
 	defer conn.Close()
 	defer cancel()
-	return pbDMClient.CreateInterface(ctx, intf)
+	stream, err := pbDMClient.CreateInterface(ctx)
+	if err != nil {
+		return err
+	}
+	for _, intf := range intfList{
+		if err := stream.Send(intf); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (c *Connection) ReadInterface(intf *pbDM.Interface) (*pbDM.Result, error) {

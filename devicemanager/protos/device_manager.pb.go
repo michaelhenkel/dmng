@@ -273,12 +273,12 @@ var fileDescriptor_bcbdd1ffbcbe4fbb = []byte{
 	0x15, 0x0c, 0xbf, 0x1a, 0xd0, 0x51, 0x03, 0x3c, 0xab, 0x1a, 0x9c, 0x40, 0xc7, 0x21, 0xee, 0x6d,
 	0x6e, 0x72, 0x50, 0xc4, 0xd8, 0xdd, 0x8d, 0x9a, 0xcb, 0xac, 0xe1, 0x14, 0x2e, 0x9e, 0x44, 0x2a,
 	0xab, 0xca, 0x14, 0x77, 0x4b, 0x95, 0x61, 0xe3, 0xa0, 0xb6, 0x59, 0xc3, 0x39, 0x74, 0xa7, 0x09,
-	0x71, 0x49, 0xa7, 0x58, 0x19, 0x68, 0x38, 0x83, 0xee, 0x8c, 0x02, 0x3a, 0x4d, 0x07, 0x1f, 0xe0,
+	0x71, 0x49, 0xa7, 0x58, 0xe9, 0x6b, 0x38, 0x83, 0xee, 0x8c, 0x02, 0x3a, 0x4d, 0x07, 0x1f, 0xe0,
 	0x5c, 0xb9, 0x29, 0xcf, 0xbd, 0xff, 0xbf, 0x30, 0xf6, 0xc3, 0x8a, 0xaf, 0x5c, 0x1c, 0xc9, 0xbf,
 	0x07, 0xc8, 0xcf, 0x72, 0x1c, 0x7b, 0x32, 0x7a, 0x1d, 0xfa, 0x42, 0x2e, 0xb3, 0x85, 0xe5, 0xae,
 	0x42, 0x3b, 0x14, 0xee, 0x92, 0x53, 0xb0, 0xa4, 0xe8, 0x83, 0x02, 0xdb, 0x0b, 0x23, 0xdf, 0xde,
-	0xe2, 0xd9, 0xc5, 0x4b, 0x4d, 0x17, 0x7a, 0xf1, 0xbd, 0xfd, 0x0e, 0x00, 0x00, 0xff, 0xff, 0xd8,
-	0x25, 0xb2, 0x22, 0xc9, 0x03, 0x00, 0x00,
+	0xe2, 0xd9, 0xc5, 0x4b, 0x4d, 0x17, 0x7a, 0xf1, 0xbd, 0xfd, 0x0e, 0x00, 0x00, 0xff, 0xff, 0xfe,
+	0x4c, 0xf7, 0x19, 0xc9, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -295,7 +295,7 @@ const _ = grpc.SupportPackageIsVersion4
 type DeviceManagerClient interface {
 	ReadInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error)
 	ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (*Interface, error)
-	CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error)
+	CreateInterface(ctx context.Context, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error)
 	DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error)
 	CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
 	DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
@@ -328,23 +328,18 @@ func (c *deviceManagerClient) ListInterfaces(ctx context.Context, in *Filter, op
 	return out, nil
 }
 
-func (c *deviceManagerClient) CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error) {
+func (c *deviceManagerClient) CreateInterface(ctx context.Context, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[0], "/devicemanager.DeviceManager/CreateInterface", opts...)
 	if err != nil {
 		return nil, err
 	}
 	x := &deviceManagerCreateInterfaceClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
 	return x, nil
 }
 
 type DeviceManager_CreateInterfaceClient interface {
-	Recv() (*Result, error)
+	Send(*Interface) error
+	CloseAndRecv() (*Result, error)
 	grpc.ClientStream
 }
 
@@ -352,7 +347,14 @@ type deviceManagerCreateInterfaceClient struct {
 	grpc.ClientStream
 }
 
-func (x *deviceManagerCreateInterfaceClient) Recv() (*Result, error) {
+func (x *deviceManagerCreateInterfaceClient) Send(m *Interface) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *deviceManagerCreateInterfaceClient) CloseAndRecv() (*Result, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
 	m := new(Result)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -400,7 +402,7 @@ func (c *deviceManagerClient) ReadDevice(ctx context.Context, in *Device, opts .
 type DeviceManagerServer interface {
 	ReadInterface(context.Context, *Interface) (*Result, error)
 	ListInterfaces(context.Context, *Filter) (*Interface, error)
-	CreateInterface(*Interface, DeviceManager_CreateInterfaceServer) error
+	CreateInterface(DeviceManager_CreateInterfaceServer) error
 	DeleteInterface(context.Context, *Interface) (*Result, error)
 	CreateDevice(context.Context, *Device) (*Device, error)
 	DeleteDevice(context.Context, *Device) (*Device, error)
@@ -417,7 +419,7 @@ func (*UnimplementedDeviceManagerServer) ReadInterface(ctx context.Context, req 
 func (*UnimplementedDeviceManagerServer) ListInterfaces(ctx context.Context, req *Filter) (*Interface, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInterfaces not implemented")
 }
-func (*UnimplementedDeviceManagerServer) CreateInterface(req *Interface, srv DeviceManager_CreateInterfaceServer) error {
+func (*UnimplementedDeviceManagerServer) CreateInterface(srv DeviceManager_CreateInterfaceServer) error {
 	return status.Errorf(codes.Unimplemented, "method CreateInterface not implemented")
 }
 func (*UnimplementedDeviceManagerServer) DeleteInterface(ctx context.Context, req *Interface) (*Result, error) {
@@ -474,15 +476,12 @@ func _DeviceManager_ListInterfaces_Handler(srv interface{}, ctx context.Context,
 }
 
 func _DeviceManager_CreateInterface_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Interface)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(DeviceManagerServer).CreateInterface(m, &deviceManagerCreateInterfaceServer{stream})
+	return srv.(DeviceManagerServer).CreateInterface(&deviceManagerCreateInterfaceServer{stream})
 }
 
 type DeviceManager_CreateInterfaceServer interface {
-	Send(*Result) error
+	SendAndClose(*Result) error
+	Recv() (*Interface, error)
 	grpc.ServerStream
 }
 
@@ -490,8 +489,16 @@ type deviceManagerCreateInterfaceServer struct {
 	grpc.ServerStream
 }
 
-func (x *deviceManagerCreateInterfaceServer) Send(m *Result) error {
+func (x *deviceManagerCreateInterfaceServer) SendAndClose(m *Result) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func (x *deviceManagerCreateInterfaceServer) Recv() (*Interface, error) {
+	m := new(Interface)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 func _DeviceManager_DeleteInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -599,7 +606,7 @@ var _DeviceManager_serviceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "CreateInterface",
 			Handler:       _DeviceManager_CreateInterface_Handler,
-			ServerStreams: true,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "device_manager.proto",
