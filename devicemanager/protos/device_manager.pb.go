@@ -254,31 +254,31 @@ func init() {
 func init() { proto.RegisterFile("device_manager.proto", fileDescriptor_bcbdd1ffbcbe4fbb) }
 
 var fileDescriptor_bcbdd1ffbcbe4fbb = []byte{
-	// 375 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x93, 0x41, 0x4f, 0xea, 0x40,
-	0x10, 0xc7, 0x5f, 0x81, 0xd7, 0x07, 0xf3, 0x1e, 0x4f, 0xb3, 0xd1, 0x64, 0xc3, 0x89, 0xf4, 0xc4,
-	0xc5, 0x96, 0x20, 0xe1, 0xe0, 0xc1, 0x18, 0x05, 0x12, 0x13, 0x4d, 0xcc, 0x1e, 0xbd, 0x98, 0xa5,
-	0x1d, 0xcb, 0xc6, 0xb6, 0x34, 0xdb, 0x2d, 0x9f, 0xce, 0x2f, 0xe5, 0x37, 0x30, 0xdd, 0x2d, 0x45,
-	0x88, 0x28, 0xc1, 0x53, 0x67, 0xff, 0x9d, 0xf9, 0xcd, 0x7f, 0x67, 0x5a, 0x38, 0x09, 0x70, 0x29,
-	0x7c, 0x7c, 0x8a, 0x79, 0xc2, 0x43, 0x94, 0x6e, 0x2a, 0x17, 0x6a, 0x41, 0xda, 0x46, 0x2d, 0x45,
-	0xe7, 0xd5, 0x82, 0xd6, 0x6d, 0xa2, 0x50, 0x3e, 0x73, 0x1f, 0x09, 0x81, 0x46, 0xc2, 0x63, 0xa4,
-	0x56, 0xd7, 0xea, 0xb5, 0x98, 0x8e, 0x0b, 0x4d, 0xa4, 0xcb, 0x21, 0xad, 0x19, 0xad, 0x88, 0x4b,
-	0x6d, 0x44, 0xeb, 0x95, 0x36, 0x22, 0x7d, 0xb0, 0x53, 0x2e, 0x31, 0x51, 0xb4, 0xd1, 0xb5, 0x7a,
-	0x7f, 0x07, 0xd4, 0xdd, 0xe8, 0xe4, 0x56, 0x5d, 0x58, 0x99, 0x57, 0x50, 0xf2, 0x5c, 0x04, 0xf4,
-	0xb7, 0xa1, 0x14, 0x31, 0x39, 0x03, 0xdb, 0x94, 0x51, 0x5b, 0x53, 0x4e, 0xb7, 0x28, 0x63, 0x7d,
-	0x62, 0x65, 0x92, 0xd3, 0x07, 0xdb, 0x28, 0xbb, 0xac, 0xeb, 0x06, 0xb5, 0x75, 0x03, 0xe7, 0x01,
-	0x6c, 0x86, 0x59, 0x1e, 0x29, 0xd2, 0x81, 0xa6, 0x44, 0x1f, 0xc5, 0x12, 0x03, 0x5d, 0xd5, 0x64,
-	0xd5, 0x99, 0x50, 0xf8, 0xc3, 0xd3, 0x34, 0x12, 0x68, 0x8a, 0x9b, 0x6c, 0x75, 0x24, 0xc7, 0x50,
-	0x8f, 0xb3, 0xb0, 0xbc, 0x79, 0x11, 0x3a, 0x17, 0x60, 0x4f, 0x45, 0xa4, 0x50, 0x7e, 0x18, 0x81,
-	0xb5, 0xdf, 0x08, 0x06, 0x6f, 0x75, 0x68, 0x9b, 0x0b, 0xdc, 0x9b, 0x1c, 0x32, 0x81, 0x36, 0x43,
-	0x1e, 0xac, 0x77, 0xb2, 0x13, 0xd2, 0xd9, 0xf9, 0xc6, 0xf9, 0x45, 0x26, 0xf0, 0xff, 0x4e, 0x64,
-	0xaa, 0x92, 0x32, 0xb2, 0x3d, 0x49, 0xe3, 0xf9, 0x2b, 0x48, 0xdf, 0x22, 0x53, 0x38, 0xba, 0x91,
-	0xc8, 0x15, 0xee, 0xe3, 0x67, 0xbb, 0x83, 0x99, 0xf3, 0x8a, 0x33, 0xc6, 0x08, 0x7f, 0xcc, 0xb9,
-	0x82, 0x7f, 0xc6, 0x4f, 0xb9, 0xf5, 0xcf, 0x3f, 0x8f, 0x6f, 0x08, 0xc6, 0xc9, 0xc1, 0x84, 0x4b,
-	0x80, 0x62, 0x43, 0x87, 0xd6, 0x5f, 0x0f, 0x1f, 0x07, 0xa1, 0x50, 0xf3, 0x7c, 0xe6, 0xfa, 0x8b,
-	0xd8, 0x8b, 0x85, 0x3f, 0xe7, 0x18, 0xcd, 0x31, 0x79, 0xc1, 0xc8, 0x0b, 0xe2, 0x24, 0xf4, 0x36,
-	0x2a, 0x3d, 0xfd, 0xdb, 0x66, 0x33, 0x5b, 0x3f, 0xcf, 0xdf, 0x03, 0x00, 0x00, 0xff, 0xff, 0x58,
-	0x72, 0x13, 0x26, 0xd6, 0x03, 0x00, 0x00,
+	// 373 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x53, 0x41, 0x6b, 0xea, 0x40,
+	0x10, 0x36, 0xea, 0xcb, 0xd3, 0x79, 0xcf, 0x5a, 0x96, 0x16, 0x96, 0x9c, 0x24, 0x27, 0x2f, 0x4d,
+	0xc4, 0x8a, 0x87, 0x52, 0x7a, 0xd0, 0x50, 0x28, 0xb4, 0x50, 0x72, 0xec, 0xa5, 0xac, 0xc9, 0x34,
+	0x2e, 0x4d, 0x62, 0xd8, 0x6c, 0xfc, 0x75, 0xfd, 0x35, 0xfd, 0x25, 0x25, 0xbb, 0x69, 0xac, 0xa2,
+	0x50, 0xf4, 0x94, 0x99, 0x8f, 0xf9, 0xbe, 0xf9, 0x66, 0x26, 0x0b, 0x17, 0x21, 0xae, 0x79, 0x80,
+	0xaf, 0x09, 0x4b, 0x59, 0x84, 0xc2, 0xc9, 0xc4, 0x4a, 0xae, 0x48, 0x4f, 0xa3, 0x15, 0x68, 0x7f,
+	0x18, 0xd0, 0x7d, 0x48, 0x25, 0x8a, 0x37, 0x16, 0x20, 0x21, 0xd0, 0x4e, 0x59, 0x82, 0xd4, 0x18,
+	0x18, 0xc3, 0xae, 0xaf, 0xe2, 0x12, 0xe3, 0xd9, 0x7a, 0x42, 0x9b, 0x1a, 0x2b, 0xe3, 0x0a, 0x9b,
+	0xd2, 0x56, 0x8d, 0x4d, 0xc9, 0x08, 0xcc, 0x8c, 0x09, 0x4c, 0x25, 0x6d, 0x0f, 0x8c, 0xe1, 0xbf,
+	0x31, 0x75, 0xb6, 0x3a, 0x39, 0x75, 0x17, 0xbf, 0xaa, 0x2b, 0x55, 0x8a, 0x82, 0x87, 0xf4, 0x8f,
+	0x56, 0x29, 0x63, 0x72, 0x05, 0xa6, 0xa6, 0x51, 0x53, 0xa9, 0x5c, 0xee, 0xa8, 0x78, 0x2a, 0xf3,
+	0xab, 0x22, 0x7b, 0x04, 0xa6, 0x46, 0x0e, 0x59, 0x57, 0x0d, 0x9a, 0x9b, 0x06, 0xf6, 0x33, 0x98,
+	0x3e, 0xe6, 0x45, 0x2c, 0x89, 0x05, 0x1d, 0x81, 0x01, 0xf2, 0x35, 0x86, 0x8a, 0xd5, 0xf1, 0xeb,
+	0x9c, 0x50, 0xf8, 0xcb, 0xb2, 0x2c, 0xe6, 0xa8, 0xc9, 0x1d, 0xff, 0x3b, 0x25, 0xe7, 0xd0, 0x4a,
+	0xf2, 0xa8, 0x9a, 0xbc, 0x0c, 0xed, 0x1b, 0x30, 0xef, 0x79, 0x2c, 0x51, 0xfc, 0x58, 0x81, 0xf1,
+	0xbb, 0x15, 0x8c, 0x3f, 0x5b, 0xd0, 0xd3, 0x03, 0x3c, 0xe9, 0x1a, 0x32, 0x83, 0x9e, 0x8f, 0x2c,
+	0xdc, 0xdc, 0xe4, 0xa0, 0x88, 0xb5, 0xbb, 0x1b, 0x3d, 0x97, 0xdd, 0x20, 0x73, 0x38, 0x7b, 0xe4,
+	0xb9, 0xac, 0x2b, 0x73, 0xb2, 0x5b, 0xaa, 0x0d, 0x5b, 0x07, 0xb5, 0xed, 0x06, 0xf1, 0xa0, 0x3f,
+	0x17, 0xc8, 0x24, 0x9e, 0x64, 0xc5, 0x83, 0xbe, 0x87, 0x31, 0x9e, 0xa8, 0x72, 0x07, 0xff, 0xb5,
+	0x97, 0xea, 0xd8, 0xfb, 0xff, 0x0a, 0x6b, 0x3f, 0xac, 0xf9, 0xda, 0xc5, 0x91, 0xfc, 0x5b, 0x80,
+	0xf2, 0x28, 0xc7, 0xb1, 0x67, 0x93, 0x97, 0x71, 0xc4, 0xe5, 0xb2, 0x58, 0x38, 0xc1, 0x2a, 0x71,
+	0x13, 0x1e, 0x2c, 0x19, 0xc6, 0x4b, 0x4c, 0xdf, 0x31, 0x76, 0xc3, 0x24, 0x8d, 0xdc, 0x2d, 0x9e,
+	0xab, 0xde, 0x69, 0xbe, 0x30, 0xd5, 0xf7, 0xfa, 0x2b, 0x00, 0x00, 0xff, 0xff, 0x9b, 0xb6, 0x85,
+	0x14, 0xc7, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -293,13 +293,13 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DeviceManagerClient interface {
-	ReadInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Interface, error)
-	ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (DeviceManager_ListInterfacesClient, error)
-	CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error)
-	DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_DeleteInterfaceClient, error)
-	CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (DeviceManager_CreateDeviceClient, error)
-	DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (DeviceManager_DeleteDeviceClient, error)
-	ReadDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (DeviceManager_ReadDeviceClient, error)
+	ReadInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error)
+	ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (*Interface, error)
+	CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error)
+	DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error)
+	CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
+	DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
+	ReadDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
 }
 
 type deviceManagerClient struct {
@@ -310,8 +310,8 @@ func NewDeviceManagerClient(cc *grpc.ClientConn) DeviceManagerClient {
 	return &deviceManagerClient{cc}
 }
 
-func (c *deviceManagerClient) ReadInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Interface, error) {
-	out := new(Interface)
+func (c *deviceManagerClient) ReadInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error) {
+	out := new(Result)
 	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/ReadInterface", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -319,233 +319,95 @@ func (c *deviceManagerClient) ReadInterface(ctx context.Context, in *Interface, 
 	return out, nil
 }
 
-func (c *deviceManagerClient) ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (DeviceManager_ListInterfacesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[0], "/devicemanager.DeviceManager/ListInterfaces", opts...)
+func (c *deviceManagerClient) ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (*Interface, error) {
+	out := new(Interface)
+	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/ListInterfaces", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &deviceManagerListInterfacesClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
 
-type DeviceManager_ListInterfacesClient interface {
-	Recv() (*Interface, error)
-	grpc.ClientStream
-}
-
-type deviceManagerListInterfacesClient struct {
-	grpc.ClientStream
-}
-
-func (x *deviceManagerListInterfacesClient) Recv() (*Interface, error) {
-	m := new(Interface)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *deviceManagerClient) CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[1], "/devicemanager.DeviceManager/CreateInterface", opts...)
+func (c *deviceManagerClient) CreateInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error) {
+	out := new(Result)
+	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/CreateInterface", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &deviceManagerCreateInterfaceClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
 
-type DeviceManager_CreateInterfaceClient interface {
-	Recv() (*Result, error)
-	grpc.ClientStream
-}
-
-type deviceManagerCreateInterfaceClient struct {
-	grpc.ClientStream
-}
-
-func (x *deviceManagerCreateInterfaceClient) Recv() (*Result, error) {
-	m := new(Result)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *deviceManagerClient) DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (DeviceManager_DeleteInterfaceClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[2], "/devicemanager.DeviceManager/DeleteInterface", opts...)
+func (c *deviceManagerClient) DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error) {
+	out := new(Result)
+	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/DeleteInterface", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &deviceManagerDeleteInterfaceClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
 
-type DeviceManager_DeleteInterfaceClient interface {
-	Recv() (*Result, error)
-	grpc.ClientStream
-}
-
-type deviceManagerDeleteInterfaceClient struct {
-	grpc.ClientStream
-}
-
-func (x *deviceManagerDeleteInterfaceClient) Recv() (*Result, error) {
-	m := new(Result)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *deviceManagerClient) CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (DeviceManager_CreateDeviceClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[3], "/devicemanager.DeviceManager/CreateDevice", opts...)
+func (c *deviceManagerClient) CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error) {
+	out := new(Device)
+	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/CreateDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &deviceManagerCreateDeviceClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
 
-type DeviceManager_CreateDeviceClient interface {
-	Recv() (*Result, error)
-	grpc.ClientStream
-}
-
-type deviceManagerCreateDeviceClient struct {
-	grpc.ClientStream
-}
-
-func (x *deviceManagerCreateDeviceClient) Recv() (*Result, error) {
-	m := new(Result)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *deviceManagerClient) DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (DeviceManager_DeleteDeviceClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[4], "/devicemanager.DeviceManager/DeleteDevice", opts...)
+func (c *deviceManagerClient) DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error) {
+	out := new(Device)
+	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/DeleteDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &deviceManagerDeleteDeviceClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
 
-type DeviceManager_DeleteDeviceClient interface {
-	Recv() (*Result, error)
-	grpc.ClientStream
-}
-
-type deviceManagerDeleteDeviceClient struct {
-	grpc.ClientStream
-}
-
-func (x *deviceManagerDeleteDeviceClient) Recv() (*Result, error) {
-	m := new(Result)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *deviceManagerClient) ReadDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (DeviceManager_ReadDeviceClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[5], "/devicemanager.DeviceManager/ReadDevice", opts...)
+func (c *deviceManagerClient) ReadDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error) {
+	out := new(Device)
+	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/ReadDevice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &deviceManagerReadDeviceClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type DeviceManager_ReadDeviceClient interface {
-	Recv() (*Result, error)
-	grpc.ClientStream
-}
-
-type deviceManagerReadDeviceClient struct {
-	grpc.ClientStream
-}
-
-func (x *deviceManagerReadDeviceClient) Recv() (*Result, error) {
-	m := new(Result)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
+	return out, nil
 }
 
 // DeviceManagerServer is the server API for DeviceManager service.
 type DeviceManagerServer interface {
-	ReadInterface(context.Context, *Interface) (*Interface, error)
-	ListInterfaces(*Filter, DeviceManager_ListInterfacesServer) error
-	CreateInterface(*Interface, DeviceManager_CreateInterfaceServer) error
-	DeleteInterface(*Interface, DeviceManager_DeleteInterfaceServer) error
-	CreateDevice(*Device, DeviceManager_CreateDeviceServer) error
-	DeleteDevice(*Device, DeviceManager_DeleteDeviceServer) error
-	ReadDevice(*Device, DeviceManager_ReadDeviceServer) error
+	ReadInterface(context.Context, *Interface) (*Result, error)
+	ListInterfaces(context.Context, *Filter) (*Interface, error)
+	CreateInterface(context.Context, *Interface) (*Result, error)
+	DeleteInterface(context.Context, *Interface) (*Result, error)
+	CreateDevice(context.Context, *Device) (*Device, error)
+	DeleteDevice(context.Context, *Device) (*Device, error)
+	ReadDevice(context.Context, *Device) (*Device, error)
 }
 
 // UnimplementedDeviceManagerServer can be embedded to have forward compatible implementations.
 type UnimplementedDeviceManagerServer struct {
 }
 
-func (*UnimplementedDeviceManagerServer) ReadInterface(ctx context.Context, req *Interface) (*Interface, error) {
+func (*UnimplementedDeviceManagerServer) ReadInterface(ctx context.Context, req *Interface) (*Result, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadInterface not implemented")
 }
-func (*UnimplementedDeviceManagerServer) ListInterfaces(req *Filter, srv DeviceManager_ListInterfacesServer) error {
-	return status.Errorf(codes.Unimplemented, "method ListInterfaces not implemented")
+func (*UnimplementedDeviceManagerServer) ListInterfaces(ctx context.Context, req *Filter) (*Interface, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListInterfaces not implemented")
 }
-func (*UnimplementedDeviceManagerServer) CreateInterface(req *Interface, srv DeviceManager_CreateInterfaceServer) error {
-	return status.Errorf(codes.Unimplemented, "method CreateInterface not implemented")
+func (*UnimplementedDeviceManagerServer) CreateInterface(ctx context.Context, req *Interface) (*Result, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateInterface not implemented")
 }
-func (*UnimplementedDeviceManagerServer) DeleteInterface(req *Interface, srv DeviceManager_DeleteInterfaceServer) error {
-	return status.Errorf(codes.Unimplemented, "method DeleteInterface not implemented")
+func (*UnimplementedDeviceManagerServer) DeleteInterface(ctx context.Context, req *Interface) (*Result, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteInterface not implemented")
 }
-func (*UnimplementedDeviceManagerServer) CreateDevice(req *Device, srv DeviceManager_CreateDeviceServer) error {
-	return status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
+func (*UnimplementedDeviceManagerServer) CreateDevice(ctx context.Context, req *Device) (*Device, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
 }
-func (*UnimplementedDeviceManagerServer) DeleteDevice(req *Device, srv DeviceManager_DeleteDeviceServer) error {
-	return status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
+func (*UnimplementedDeviceManagerServer) DeleteDevice(ctx context.Context, req *Device) (*Device, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
 }
-func (*UnimplementedDeviceManagerServer) ReadDevice(req *Device, srv DeviceManager_ReadDeviceServer) error {
-	return status.Errorf(codes.Unimplemented, "method ReadDevice not implemented")
+func (*UnimplementedDeviceManagerServer) ReadDevice(ctx context.Context, req *Device) (*Device, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadDevice not implemented")
 }
 
 func RegisterDeviceManagerServer(s *grpc.Server, srv DeviceManagerServer) {
@@ -570,130 +432,112 @@ func _DeviceManager_ReadInterface_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DeviceManager_ListInterfaces_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Filter)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+func _DeviceManager_ListInterfaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Filter)
+	if err := dec(in); err != nil {
+		return nil, err
 	}
-	return srv.(DeviceManagerServer).ListInterfaces(m, &deviceManagerListInterfacesServer{stream})
-}
-
-type DeviceManager_ListInterfacesServer interface {
-	Send(*Interface) error
-	grpc.ServerStream
-}
-
-type deviceManagerListInterfacesServer struct {
-	grpc.ServerStream
-}
-
-func (x *deviceManagerListInterfacesServer) Send(m *Interface) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _DeviceManager_CreateInterface_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Interface)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+	if interceptor == nil {
+		return srv.(DeviceManagerServer).ListInterfaces(ctx, in)
 	}
-	return srv.(DeviceManagerServer).CreateInterface(m, &deviceManagerCreateInterfaceServer{stream})
-}
-
-type DeviceManager_CreateInterfaceServer interface {
-	Send(*Result) error
-	grpc.ServerStream
-}
-
-type deviceManagerCreateInterfaceServer struct {
-	grpc.ServerStream
-}
-
-func (x *deviceManagerCreateInterfaceServer) Send(m *Result) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _DeviceManager_DeleteInterface_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Interface)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicemanager.DeviceManager/ListInterfaces",
 	}
-	return srv.(DeviceManagerServer).DeleteInterface(m, &deviceManagerDeleteInterfaceServer{stream})
-}
-
-type DeviceManager_DeleteInterfaceServer interface {
-	Send(*Result) error
-	grpc.ServerStream
-}
-
-type deviceManagerDeleteInterfaceServer struct {
-	grpc.ServerStream
-}
-
-func (x *deviceManagerDeleteInterfaceServer) Send(m *Result) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _DeviceManager_CreateDevice_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Device)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagerServer).ListInterfaces(ctx, req.(*Filter))
 	}
-	return srv.(DeviceManagerServer).CreateDevice(m, &deviceManagerCreateDeviceServer{stream})
+	return interceptor(ctx, in, info, handler)
 }
 
-type DeviceManager_CreateDeviceServer interface {
-	Send(*Result) error
-	grpc.ServerStream
-}
-
-type deviceManagerCreateDeviceServer struct {
-	grpc.ServerStream
-}
-
-func (x *deviceManagerCreateDeviceServer) Send(m *Result) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _DeviceManager_DeleteDevice_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Device)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+func _DeviceManager_CreateInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Interface)
+	if err := dec(in); err != nil {
+		return nil, err
 	}
-	return srv.(DeviceManagerServer).DeleteDevice(m, &deviceManagerDeleteDeviceServer{stream})
-}
-
-type DeviceManager_DeleteDeviceServer interface {
-	Send(*Result) error
-	grpc.ServerStream
-}
-
-type deviceManagerDeleteDeviceServer struct {
-	grpc.ServerStream
-}
-
-func (x *deviceManagerDeleteDeviceServer) Send(m *Result) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _DeviceManager_ReadDevice_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Device)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+	if interceptor == nil {
+		return srv.(DeviceManagerServer).CreateInterface(ctx, in)
 	}
-	return srv.(DeviceManagerServer).ReadDevice(m, &deviceManagerReadDeviceServer{stream})
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicemanager.DeviceManager/CreateInterface",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagerServer).CreateInterface(ctx, req.(*Interface))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-type DeviceManager_ReadDeviceServer interface {
-	Send(*Result) error
-	grpc.ServerStream
+func _DeviceManager_DeleteInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Interface)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceManagerServer).DeleteInterface(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicemanager.DeviceManager/DeleteInterface",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagerServer).DeleteInterface(ctx, req.(*Interface))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-type deviceManagerReadDeviceServer struct {
-	grpc.ServerStream
+func _DeviceManager_CreateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Device)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceManagerServer).CreateDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicemanager.DeviceManager/CreateDevice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagerServer).CreateDevice(ctx, req.(*Device))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func (x *deviceManagerReadDeviceServer) Send(m *Result) error {
-	return x.ServerStream.SendMsg(m)
+func _DeviceManager_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Device)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceManagerServer).DeleteDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicemanager.DeviceManager/DeleteDevice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagerServer).DeleteDevice(ctx, req.(*Device))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DeviceManager_ReadDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Device)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceManagerServer).ReadDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devicemanager.DeviceManager/ReadDevice",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceManagerServer).ReadDevice(ctx, req.(*Device))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _DeviceManager_serviceDesc = grpc.ServiceDesc{
@@ -704,38 +548,31 @@ var _DeviceManager_serviceDesc = grpc.ServiceDesc{
 			MethodName: "ReadInterface",
 			Handler:    _DeviceManager_ReadInterface_Handler,
 		},
-	},
-	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "ListInterfaces",
-			Handler:       _DeviceManager_ListInterfaces_Handler,
-			ServerStreams: true,
+			MethodName: "ListInterfaces",
+			Handler:    _DeviceManager_ListInterfaces_Handler,
 		},
 		{
-			StreamName:    "CreateInterface",
-			Handler:       _DeviceManager_CreateInterface_Handler,
-			ServerStreams: true,
+			MethodName: "CreateInterface",
+			Handler:    _DeviceManager_CreateInterface_Handler,
 		},
 		{
-			StreamName:    "DeleteInterface",
-			Handler:       _DeviceManager_DeleteInterface_Handler,
-			ServerStreams: true,
+			MethodName: "DeleteInterface",
+			Handler:    _DeviceManager_DeleteInterface_Handler,
 		},
 		{
-			StreamName:    "CreateDevice",
-			Handler:       _DeviceManager_CreateDevice_Handler,
-			ServerStreams: true,
+			MethodName: "CreateDevice",
+			Handler:    _DeviceManager_CreateDevice_Handler,
 		},
 		{
-			StreamName:    "DeleteDevice",
-			Handler:       _DeviceManager_DeleteDevice_Handler,
-			ServerStreams: true,
+			MethodName: "DeleteDevice",
+			Handler:    _DeviceManager_DeleteDevice_Handler,
 		},
 		{
-			StreamName:    "ReadDevice",
-			Handler:       _DeviceManager_ReadDevice_Handler,
-			ServerStreams: true,
+			MethodName: "ReadDevice",
+			Handler:    _DeviceManager_ReadDevice_Handler,
 		},
 	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "device_manager.proto",
 }

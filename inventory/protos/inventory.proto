@@ -9,8 +9,6 @@ import "devicemanager/protos/device_manager.proto";
 service Inventory{
     rpc GetDevice(Device) returns (Device) {}
     rpc ListDevices(Filter) returns (stream Device) {}
-    rpc CreateDevice(Device) returns (stream Result) {} 
-    rpc DeleteDevice(Device) returns (stream Result) {} 
 }
 
 message Device {

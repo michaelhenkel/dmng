@@ -5,13 +5,13 @@ option go_package = "github.com/michaelhenkel/dmng/devicemanager/protos";
 package devicemanager;
 
 service DeviceManager{
-    rpc ReadInterface(Interface) returns (Interface) {}
-    rpc ListInterfaces(Filter) returns (stream Interface) {}
-    rpc CreateInterface(Interface) returns (stream Result) {} 
-    rpc DeleteInterface(Interface) returns (stream Result) {} 
-    rpc CreateDevice(Device) returns (stream Result) {}
-    rpc DeleteDevice(Device) returns (stream Result) {}
-    rpc ReadDevice(Device) returns (stream Result) {} 
+    rpc ReadInterface(Interface) returns (Result) {}
+    rpc ListInterfaces(Filter) returns (Interface) {}
+    rpc CreateInterface(Interface) returns (Result) {} 
+    rpc DeleteInterface(Interface) returns (Result) {} 
+    rpc CreateDevice(Device) returns (Device) {}
+    rpc DeleteDevice(Device) returns (Device) {}
+    rpc ReadDevice(Device) returns (Device) {} 
 }
 
 message Interface {
