@@ -36,11 +36,11 @@ func main() {
 		intf := &dmPB.Interface{
 			Name: *addport,
 		}
-		result, err := deviceClient.CreateInterface(intf)
+		_, err := deviceClient.CreateInterface(intf)
 		if err != nil {
 			log.Fatalln(err)
 		}
-		log.Println(result.Msg)
+		//log.Println(result.Msg)
 	}
 	if *getport != "" {
 		intf := &dmPB.Interface{

@@ -37,13 +37,13 @@ func (d *deviceManagerServer) ReadDevice(ctx context.Context, device *dmPB.Devic
 	return device, nil
 }
 
-func (d *deviceManagerServer) CreateInterface(ctx context.Context, intf *dmPB.Interface) (*dmPB.Result, error) {
+func (d *deviceManagerServer) CreateInterface(intf *dmPB.Interface, cl dmPB.DeviceManager_CreateInterfaceServer) error {
 	dbClient := database.NewDBClient()
 	result := &dmPB.Result{}
 	if err := dbClient.ReadInterface(intf); err == nil {
 		result.Msg = "failed"
 		st := status.New(codes.AlreadyExists, "Interface already exists")
-		return result, st.Err()
+		return st.Err()
 	}
 	intf.Device = &dmPB.Device{
 		Name: *name,
@@ -53,7 +53,7 @@ func (d *deviceManagerServer) CreateInterface(ctx context.Context, intf *dmPB.In
 		result.Msg = "failed"
 	}
 	result.Msg = "success"
-	return result, nil
+	return nil
 }
 
 func (d *deviceManagerServer) ReadInterface(ctx context.Context, intf *dmPB.Interface) (*dmPB.Result, error) {

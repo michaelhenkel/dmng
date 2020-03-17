@@ -26,7 +26,7 @@ type Connection struct {
 	ServerAddress string
 }
 
-func (c *Connection) CreateInterface(intf *pbDM.Interface) (*pbDM.Result, error) {
+func (c *Connection) CreateInterface(intf *pbDM.Interface) (pbDM.DeviceManager_CreateInterfaceClient, error) {
 	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
 	defer conn.Close()
 	defer cancel()
