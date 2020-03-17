@@ -89,10 +89,12 @@ func (d *deviceManagerServer) CreateInterface(stream dmPB.DeviceManager_CreateIn
 		intf.Device = &dmPB.Device{
 			Name: *name,
 		}
+		// Here the device driver API will be invoced
 		rand.Seed(time.Now().UnixNano())
 		n := rand.Intn(20)
 		log.Printf("sleeping for %d seconds\n", n)
 		time.Sleep(time.Duration(n) * time.Second)
+		// End of device driver invocation
 		if err := dbClient.CreateInterface(intf); err != nil {
 			fmt.Println(err)
 			result := &dmPB.Result{
