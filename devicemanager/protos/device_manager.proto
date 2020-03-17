@@ -7,7 +7,7 @@ package devicemanager;
 service DeviceManager{
     rpc ReadInterface(Interface) returns (Result) {}
     rpc ListInterfaces(Filter) returns (Interface) {}
-    rpc CreateInterface(Interface) returns (Result) {} 
+    rpc CreateInterface(stream Interface) returns (stream Result) {} 
     rpc DeleteInterface(Interface) returns (Result) {} 
     rpc CreateDevice(Device) returns (Device) {}
     rpc DeleteDevice(Device) returns (Device) {}
@@ -32,6 +32,7 @@ message Result {
     bool received = 1;
     bool applied = 2;
     string msg = 3;
+    bool success = 4;
 }
 
 message Filter {

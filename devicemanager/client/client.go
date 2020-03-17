@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"strings"
 
 	deviceApi "github.com/michaelhenkel/dmng/devicemanager/client/api"
 	dmPB "github.com/michaelhenkel/dmng/devicemanager/protos"
@@ -16,6 +17,7 @@ var (
 	addport    = flag.String("addport", "", "port to be added")
 	getport    = flag.String("getport", "", "port to be retrieved")
 	delport    = flag.String("delport", "", "port to be deleted")
+	timeout    = flag.Int("timeout", 20*1000, "Default deadline in milliseconds.")
 )
 
 func jsonPrettyPrint(in []byte) string {
@@ -33,20 +35,25 @@ func main() {
 		ServerAddress: *serverAddr,
 	}
 	if *addport != "" {
-		intf := &dmPB.Interface{
-			Name: *addport,
+		var intfList []*dmPB.Interface
+		intfSlice := strings.Split(*addport, ",")
+		for _, intf := range intfSlice {
+			_intf := &dmPB.Interface{
+				Name: intf,
+			}
+			intfList = append(intfList, _intf)
 		}
-		result, err := deviceClient.CreateInterface(intf)
+		err := deviceClient.CreateInterface(intfList, *timeout)
 		if err != nil {
 			log.Fatalln(err)
 		}
-		log.Println(result.Msg)
+		//log.Println(result.Msg)
 	}
 	if *getport != "" {
 		intf := &dmPB.Interface{
 			Name: *getport,
 		}
-		_, err := deviceClient.ReadInterface(intf)
+		_, err := deviceClient.ReadInterface(intf, *timeout)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -61,7 +68,7 @@ func main() {
 		intf := &dmPB.Interface{
 			Name: *delport,
 		}
-		_, err := deviceClient.DeleteInterface(intf)
+		_, err := deviceClient.DeleteInterface(intf, *timeout)
 		if err != nil {
 			log.Fatalln(err)
 		}

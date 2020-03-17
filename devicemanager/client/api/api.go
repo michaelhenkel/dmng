@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"io"
 	"log"
 	"time"
 
@@ -9,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func newClient(server_address string) (pbDM.DeviceManagerClient, context.Context, *grpc.ClientConn, context.CancelFunc) {
+func newClient(server_address string, timeout int) (pbDM.DeviceManagerClient, context.Context, *grpc.ClientConn, context.CancelFunc) {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithBlock())
 	opts = append(opts, grpc.WithInsecure())
@@ -18,7 +19,7 @@ func newClient(server_address string) (pbDM.DeviceManagerClient, context.Context
 		log.Fatalf("did not connect: %v", err)
 	}
 	c := pbDM.NewDeviceManagerClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Millisecond)
 	return c, ctx, conn, cancel
 }
 
@@ -26,37 +27,62 @@ type Connection struct {
 	ServerAddress string
 }
 
-func (c *Connection) CreateInterface(intf *pbDM.Interface) (*pbDM.Result, error) {
-	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
+func (c *Connection) CreateInterface(intfList []*pbDM.Interface, timeout int) error {
+	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress, timeout)
 	defer conn.Close()
 	defer cancel()
-	return pbDMClient.CreateInterface(ctx, intf)
+	stream, err := pbDMClient.CreateInterface(ctx)
+	if err != nil {
+		return err
+	}
+	done := make(chan bool)
+	go func() {
+		for _, intf := range intfList {
+			if err := stream.Send(intf); err != nil {
+				log.Fatalf("can not send %v", err)
+			}
+		}
+		if err := stream.CloseSend(); err != nil {
+			log.Println(err)
+		}
+	}()
+
+	go func() {
+		for {
+			result, err := stream.Recv()
+			if err == io.EOF {
+				close(done)
+				return
+			}
+			if err != nil {
+				log.Fatalf("can not receive %v", err)
+			}
+			log.Printf("%+v\n", result)
+		}
+	}()
+
+	go func() {
+		<-ctx.Done()
+		if err := ctx.Err(); err != nil {
+			log.Println(err)
+		}
+		close(done)
+	}()
+
+	<-done
+	return nil
 }
 
-func (c *Connection) ReadInterface(intf *pbDM.Interface) (*pbDM.Result, error) {
-	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
+func (c *Connection) ReadInterface(intf *pbDM.Interface, timeout int) (*pbDM.Result, error) {
+	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress, timeout)
 	defer conn.Close()
 	defer cancel()
 	return pbDMClient.ReadInterface(ctx, intf)
 }
 
-func (c *Connection) DeleteInterface(intf *pbDM.Interface) (*pbDM.Result, error) {
-	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
+func (c *Connection) DeleteInterface(intf *pbDM.Interface, timeout int) (*pbDM.Result, error) {
+	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress, timeout)
 	defer conn.Close()
 	defer cancel()
 	return pbDMClient.DeleteInterface(ctx, intf)
 }
-
-/*
-func (e *Executor) GetFileContent(filePath string) (*string, error) {
-	socket := e.Socket
-	c, ctx, conn, cancel := newClient(&socket)
-	defer conn.Close()
-	defer cancel()
-	fileResult, err := c.GetFileContent(ctx, &protos.FilePath{Path: filePath})
-	if err != nil {
-		return nil, err
-	}
-	return &fileResult.Result, nil
-}
-*/
