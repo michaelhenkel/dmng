@@ -2,4 +2,4 @@ inventory/client/client_linux
 inventory/client/client
 inventory/server/server_linux
 inventory/server/server
-build/*
+build/
