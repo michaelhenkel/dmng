@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func newClient(server_address string) (pbDM.DeviceManagerClient, context.Context, *grpc.ClientConn, context.CancelFunc) {
+func newClient(server_address string, timeout int) (pbDM.DeviceManagerClient, context.Context, *grpc.ClientConn, context.CancelFunc) {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithBlock())
 	opts = append(opts, grpc.WithInsecure())
@@ -19,7 +19,7 @@ func newClient(server_address string) (pbDM.DeviceManagerClient, context.Context
 		log.Fatalf("did not connect: %v", err)
 	}
 	c := pbDM.NewDeviceManagerClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Millisecond)
 	return c, ctx, conn, cancel
 }
 
@@ -27,8 +27,8 @@ type Connection struct {
 	ServerAddress string
 }
 
-func (c *Connection) CreateInterface(intfList []*pbDM.Interface) error {
-	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
+func (c *Connection) CreateInterface(intfList []*pbDM.Interface, timeout int) error {
+	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress, timeout)
 	defer conn.Close()
 	defer cancel()
 	stream, err := pbDMClient.CreateInterface(ctx)
@@ -57,7 +57,7 @@ func (c *Connection) CreateInterface(intfList []*pbDM.Interface) error {
 			if err != nil {
 				log.Fatalf("can not receive %v", err)
 			}
-			log.Printf("new result %+v received", result)
+			log.Printf("%+v\n", result)
 		}
 	}()
 
@@ -73,15 +73,15 @@ func (c *Connection) CreateInterface(intfList []*pbDM.Interface) error {
 	return nil
 }
 
-func (c *Connection) ReadInterface(intf *pbDM.Interface) (*pbDM.Result, error) {
-	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
+func (c *Connection) ReadInterface(intf *pbDM.Interface, timeout int) (*pbDM.Result, error) {
+	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress, timeout)
 	defer conn.Close()
 	defer cancel()
 	return pbDMClient.ReadInterface(ctx, intf)
 }
 
-func (c *Connection) DeleteInterface(intf *pbDM.Interface) (*pbDM.Result, error) {
-	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress)
+func (c *Connection) DeleteInterface(intf *pbDM.Interface, timeout int) (*pbDM.Result, error) {
+	pbDMClient, ctx, conn, cancel := newClient(c.ServerAddress, timeout)
 	defer conn.Close()
 	defer cancel()
 	return pbDMClient.DeleteInterface(ctx, intf)

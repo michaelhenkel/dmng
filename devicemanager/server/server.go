@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math/rand"
 	"net"
 	"sync"
+	"time"
 
 	"github.com/michaelhenkel/dmng/database"
 	"google.golang.org/grpc"
@@ -55,7 +57,6 @@ func (d *deviceManagerServer) CreateInterface(stream dmPB.DeviceManager_CreateIn
 		dbClient := database.NewDBClient()
 		intf, err := stream.Recv()
 		if err == io.EOF {
-			// return will close stream from server side
 			log.Println("exit")
 			return nil
 		}
@@ -63,31 +64,53 @@ func (d *deviceManagerServer) CreateInterface(stream dmPB.DeviceManager_CreateIn
 			log.Printf("receive error %v", err)
 			continue
 		}
-		fmt.Printf("received intf: %s\n", intf.Name)
+		result := &dmPB.Result{
+			Received: true,
+			Msg:      "request received",
+			Applied:  false,
+		}
+		if err := stream.Send(result); err != nil {
+			log.Printf("send error %v", err)
+		}
+		log.Printf("received intf: %s\n", intf.Name)
 		if err := dbClient.ReadInterface(intf); err == nil {
-			//st := status.New(codes.AlreadyExists, "Interface already exists")
 			log.Println("object already exists")
-			//return st.Err()
 			result := &dmPB.Result{
 				Received: true,
-				Msg:      "failed",
+				Msg:      "object already exists",
+				Success:  false,
+				Applied:  false,
 			}
 			if err := stream.Send(result); err != nil {
 				log.Printf("send error %v", err)
 			}
 			continue
-			//return err
 		}
 		intf.Device = &dmPB.Device{
 			Name: *name,
 		}
+		rand.Seed(time.Now().UnixNano())
+		n := rand.Intn(20)
+		log.Printf("sleeping for %d seconds\n", n)
+		time.Sleep(time.Duration(n) * time.Second)
 		if err := dbClient.CreateInterface(intf); err != nil {
 			fmt.Println(err)
-			return err
+			result := &dmPB.Result{
+				Received: true,
+				Msg:      "create interface failed",
+				Success:  false,
+				Applied:  false,
+			}
+			if err := stream.Send(result); err != nil {
+				log.Printf("send error %v", err)
+			}
+			continue
 		}
-		result := &dmPB.Result{
+		result = &dmPB.Result{
 			Received: true,
-			Msg:      "success",
+			Msg:      "interface created",
+			Success:  true,
+			Applied:  true,
 		}
 		if err := stream.Send(result); err != nil {
 			log.Printf("send error %v", err)

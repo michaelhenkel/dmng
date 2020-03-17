@@ -17,6 +17,7 @@ var (
 	addport    = flag.String("addport", "", "port to be added")
 	getport    = flag.String("getport", "", "port to be retrieved")
 	delport    = flag.String("delport", "", "port to be deleted")
+	timeout    = flag.Int("timeout", 20*1000, "Default deadline in milliseconds.")
 )
 
 func jsonPrettyPrint(in []byte) string {
@@ -35,14 +36,14 @@ func main() {
 	}
 	if *addport != "" {
 		var intfList []*dmPB.Interface
-		intfSlice := strings.Split(*addport,",")
-		for _, intf := range intfSlice{
-		_intf := &dmPB.Interface{
-			Name: intf,
+		intfSlice := strings.Split(*addport, ",")
+		for _, intf := range intfSlice {
+			_intf := &dmPB.Interface{
+				Name: intf,
+			}
+			intfList = append(intfList, _intf)
 		}
-		intfList = append(intfList, _intf)
-	}
-		err := deviceClient.CreateInterface(intfList)
+		err := deviceClient.CreateInterface(intfList, *timeout)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -52,7 +53,7 @@ func main() {
 		intf := &dmPB.Interface{
 			Name: *getport,
 		}
-		_, err := deviceClient.ReadInterface(intf)
+		_, err := deviceClient.ReadInterface(intf, *timeout)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -67,7 +68,7 @@ func main() {
 		intf := &dmPB.Interface{
 			Name: *delport,
 		}
-		_, err := deviceClient.DeleteInterface(intf)
+		_, err := deviceClient.DeleteInterface(intf, *timeout)
 		if err != nil {
 			log.Fatalln(err)
 		}
