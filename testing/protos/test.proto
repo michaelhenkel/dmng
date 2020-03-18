@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+//option go_package = "github.com/michaelhenkel/dmng/devicemanager/protos";
+
+package devicemanagertest;
+
+message Result {
+    bool received = 1;
+    bool applied = 2;
+    string msg = 3;
+    bool success = 4;
+}
+
+message Filter {
+    Interface parent = 1;
+}
+
+message Device {
+    string name = 1;
+    repeated Role roles = 2;
+    repeated Interface interfaces = 3;
+    repeated RoutingInstance routingInstances = 4;
+}
+
+enum Role {
+    LEAF = 0;
+    SPINE = 1;
+    CRB = 2;
+    ERB = 3;
+    RR = 4;
+}
+
+service DeviceManager{
+    rpc ReadInterface(Interface) returns (Result) {}
+    rpc ListInterfaces(Filter) returns (stream Interface) {}
+    rpc CreateInterface(stream Interface) returns (stream Result) {} 
+    rpc DeleteInterface(Interface) returns (Result) {} 
+    rpc ReadRoutingInstance(RoutingInstance) returns (Result) {}
+    rpc ListRoutingInstances(Filter) returns (stream RoutingInstance) {}
+    rpc CreateRoutingInstance(stream RoutingInstance) returns (stream Result) {} 
+    rpc DeleteRoutingInstance(RoutingInstance) returns (Result) {} 
+}
+
+// DM
+message Interface {
+    string name = 1;
+    string ipv4 = 2;
+    string ipv6 = 3;
+    Interface parent = 4;
+    string uuid = 5;
+    Device device = 6;
+    int32 version = 7;
+    int32 vlanID = 8;
+}
+
+message RoutingInstance {
+    int32 id = 1;
+    RoutingProtocol routingProtocol = 2;
+    string name = 3;
+}
+
+message RoutingProtocol {
+    oneof Protocol{
+        BGP bgp = 1;
+        OSPF ospf = 2;
+    }
+}
+
+message RoutingOptions {
+    
+}
+
+message BGP {
+    int32 asn = 1;
+    enum type {
+        INTERNAL = 0;
+        EXTERNAL = 1;
+    }
+    Interface source = 4;
+    message Peers {
+        repeated string address = 5;
+    }
+}
+
+message OSPF {
+    int32 area = 1;
+}
+
+// FM
+
+message Fabric {
+    string name = 1;
+    oneof topology {
+        CLOS clos = 2;
+    }
+}
+
+message CLOS {
+    repeated Device leaves = 1;
+    repeated Device spines = 2;
+    int32 asnRangeStart = 3;
+    int32 asnRangeEnd = 4;
+    int32 subnetRangeStart = 5;
+    int32 subnetRangeEnd = 6;
+}
+
+service FabricManager{
+    rpc ReadFabric(Fabric) returns (Result) {}
+    rpc ListFabrics(Filter) returns (stream Fabric) {}
+    rpc CreateFabric(stream Fabric) returns (stream Result) {} 
+    rpc DeleteFabric(Fabric) returns (Result) {} 
+}

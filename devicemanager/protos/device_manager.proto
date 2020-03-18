@@ -21,6 +21,7 @@ message Interface {
     Interface parent = 4;
     string uuid = 5;
     Device device = 6;
+    int32 version = 7;
 }
 
 message Device {
@@ -38,4 +39,3 @@ message Result {
 message Filter {
     Interface parent = 1;
 }
-

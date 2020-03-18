@@ -19,7 +19,8 @@ func newClient(server_address string, timeout int) (pbDM.DeviceManagerClient, co
 		log.Fatalf("did not connect: %v", err)
 	}
 	c := pbDM.NewDeviceManagerClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Millisecond)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeout)*time.Second)
+	log.Printf("timeout: %d\n", timeout)
 	return c, ctx, conn, cancel
 }
 

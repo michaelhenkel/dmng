@@ -17,7 +17,7 @@ var (
 	addport    = flag.String("addport", "", "port to be added")
 	getport    = flag.String("getport", "", "port to be retrieved")
 	delport    = flag.String("delport", "", "port to be deleted")
-	timeout    = flag.Int("timeout", 20*1000, "Default deadline in milliseconds.")
+	timeout    = flag.Int("timeout", 2, "Default deadline in seconds.")
 )
 
 func jsonPrettyPrint(in []byte) string {
