@@ -12,6 +12,24 @@
             "program": "/Users/mhenkel/go/src/github.com/michaelhenkel/dmng/devicemanager/server/server.go",
             "env": {},
             "args": ["-name","device1"]
+        },
+        {
+            "name": "Launch client",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "/Users/mhenkel/go/src/github.com/michaelhenkel/dmng/devicemanager/client/client.go",
+            "env": {},
+            "args": ["-request","/Users/mhenkel/go/src/github.com/michaelhenkel/dmng/build/request.yaml"]
+        },
+        {
+            "name": "Launch dm agent",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "/Users/mhenkel/go/src/github.com/michaelhenkel/dmng/devicemanager/server/server.go",
+            "env": {},
+            "args": ["-name","device1"]
         }
     ]
 }

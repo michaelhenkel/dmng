@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package simple;
+
+service SimpleService {
+  rpc SimpleRPC (stream SimpleData) returns (stream SimpleData) {}
+}
+
+message SimpleData {
+  string msg = 1;
+}

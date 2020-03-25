@@ -14,6 +14,10 @@ func main() {
 	fabricManagerClient := pb.NewFabricManagerClient(conn)
 
 	clos := &pb.CLOS{
+		AsnRangeStart:    5000,
+		AsnRangeEnd:      6000,
+		SubnetRangeStart: 167772160,
+		SubnetRangeEnd:   167772671,
 		Leaves: []*pb.Device{{
 			Name: "device1",
 			Roles: []pb.Role{

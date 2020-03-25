@@ -4,6 +4,7 @@ option go_package = "github.com/michaelhenkel/dmng/devicemanager/protos";
 
 package devicemanager;
 
+/*
 service DeviceManager{
     rpc ReadInterface(Interface) returns (Result) {}
     rpc ListInterfaces(Filter) returns (Interface) {}
@@ -11,7 +12,50 @@ service DeviceManager{
     rpc DeleteInterface(Interface) returns (Result) {} 
     rpc CreateDevice(Device) returns (Device) {}
     rpc DeleteDevice(Device) returns (Device) {}
-    rpc ReadDevice(Device) returns (Device) {} 
+    rpc ReadDevice(Device) returns (Device) {}
+    rpc Streamer(stream Request) returns (stream Result) {}
+}
+*/
+
+service DeviceManager{
+    rpc RequestHandler(stream Message) returns (stream Message) {}
+}
+
+message Message {
+    oneof message{
+        Request request = 1;
+        Result result = 2;
+    }
+}
+
+message Request {
+    oneof request{
+        Create create = 1;
+        Delete delete = 2;
+        Connect connect = 3;
+    }
+}
+
+message Connect{
+    string client = 1;
+}
+
+message Create{
+    oneof create_request{
+        Interfaces interfaces = 1;
+        RoutingInstances routingInstances = 2;
+    }
+}
+
+message Delete{
+    oneof delete_request{
+        Interfaces interfaces = 1;
+        RoutingInstances routingInstances = 2;
+    }
+}
+
+message Interfaces {
+    repeated Interface interface = 1;
 }
 
 message Interface {
@@ -24,10 +68,38 @@ message Interface {
     int32 version = 7;
 }
 
-message Device {
-    string name = 1;
-    string uuid = 2;
+message RoutingInstances {
+    repeated RoutingInstance routingInstance = 1;
 }
+
+message RoutingInstance {
+    int32 id = 1;
+    RoutingProtocol routingProtocol = 2;
+    string name = 3;
+ }
+ 
+ message RoutingProtocol {
+    oneof Protocol{
+        BGP bgp = 1;
+        OSPF ospf = 2;
+    }
+ }
+ 
+ message BGP {
+    int32 asn = 1;
+    enum type {
+        INTERNAL = 0;
+        EXTERNAL = 1;
+    }
+    Interface source = 4;
+    message Peers {
+        repeated string address = 5;
+    }
+ }
+ 
+ message OSPF {
+    int32 area = 1;
+ }
 
 message Result {
     bool received = 1;
@@ -36,6 +108,12 @@ message Result {
     bool success = 4;
 }
 
-message Filter {
-    Interface parent = 1;
+message Device {
+    string name = 1;
+    string uuid = 2;
 }
+
+
+
+
+

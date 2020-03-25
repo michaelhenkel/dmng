@@ -110,3 +110,37 @@ service FabricManager{
     rpc CreateFabric(stream Fabric) returns (stream Result) {} 
     rpc DeleteFabric(Fabric) returns (Result) {} 
 }
+
+
+service DeviceManager{
+    rpc RequestHandler(stream Request) returns (stream Result) {}
+}
+message Request {
+    oneof request{
+        Create create = 1;
+        Delete delete = 2;
+    }
+}
+
+message Create{
+    oneof create_request{
+        Interface interface = 1;
+        Bgp bgp = 2;
+    }
+
+}
+
+message Delete{
+    oneof delete_request{
+        Interface interface = 1;
+        Bgp bgp = 2;
+    }
+}
+
+message CreateInterface{
+
+}
+
+message DeleteInterface{
+
+}

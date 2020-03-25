@@ -9,19 +9,26 @@ cd dmng
 make
 ```
 
-# Run a device agent
+# Run the FM server
 ```
 cd dmng/build
-./dm_server -port 10000 -name device1
+./fm_server
 ```
 
-# Create some interfaces
+# in a different terminal connect first device
 ```
 cd dmng/build
-./dm_client -server_addr localhost:10000 -addport eth1,eth4,eth3,eth5,eth7
+./dm_server -name device1
 ```
 
-# Check db
+# in a different terminal connect second device
 ```
-cat dmng/build/db.json | jq .
+cd dmng/build
+./dm_server -name device2
+```
+
+# in a different terminal create a fabric
+```
+cd dmng/build
+./fm_client -request request.yaml
 ```

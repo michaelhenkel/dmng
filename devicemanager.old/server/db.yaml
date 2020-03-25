@@ -1,0 +1,7 @@
+interfaces: []
+devices:
+- name: device1
+  uuid: ""
+  xxx_nounkeyedliteral: {}
+  xxx_unrecognized: []
+  xxx_sizecache: 0
