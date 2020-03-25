@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option go_package = "github.com/michaelhenkel/dmng/fabricmanager/protos";
+
+package fabricmanager;
+
+
+service FabricManager{
+    rpc RequestHandler(stream Request) returns (stream Result) {}
+}
+
+message Request {
+    oneof request{
+        Create create = 1;
+        Delete delete = 2;
+    }
+}
+
+message Create{
+    oneof create_request{
+        Fabric fabric = 1;
+    }
+}
+
+message Fabric{
+    string name = 1;
+    repeated string devices = 2;
+}
+
+message Delete{
+    oneof delete_request{
+        string fabrics = 1;
+    }
+}
+
+message Result {
+    bool received = 1;
+    bool applied = 2;
+    string msg = 3;
+    bool success = 4;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option go_package = "github.com/michaelhenkel/dmng/devicemanager/protos";
+
+package devicemanager;
+
+service DeviceManager{
+    rpc RequestHandler(stream Message) returns (stream Message) {}
+}
+
+message Message{
+    oneof message{
+        Request request = 1;
+        Result result = 2;
+    }
+}
+
+message Request {
+    oneof request{
+        Create create = 1;
+        Delete delete = 2;
+    }
+}
+
+message Create{
+    oneof create_request{
+        Interfaces interfaces = 1;
+    }
+}
+
+message Delete{
+    oneof delete_request{
+        Interface interface = 1;
+    }
+}
+
+message Interfaces {
+    repeated Interface interface = 1;
+}
+
+message Interface {
+    string name = 1;
+    string ipv4 = 2;
+    string ipv6 = 3;
+    Interface parent = 4;
+    string uuid = 5;
+    Device device = 6;
+    int32 version = 7;
+}
+
+message Device {
+    string name = 1;
+    string uuid = 2;
+}
+
+message Result {
+    bool received = 1;
+    bool applied = 2;
+    string msg = 3;
+    bool success = 4;
+}
+
+
+

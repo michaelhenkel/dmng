@@ -24,6 +24,444 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type BGPType int32
+
+const (
+	BGP_INTERNAL BGPType = 0
+	BGP_EXTERNAL BGPType = 1
+)
+
+var BGPType_name = map[int32]string{
+	0: "INTERNAL",
+	1: "EXTERNAL",
+}
+
+var BGPType_value = map[string]int32{
+	"INTERNAL": 0,
+	"EXTERNAL": 1,
+}
+
+func (x BGPType) String() string {
+	return proto.EnumName(BGPType_name, int32(x))
+}
+
+func (BGPType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{10, 0}
+}
+
+type Message struct {
+	// Types that are valid to be assigned to Message:
+	//	*Message_Request
+	//	*Message_Result
+	Message              isMessage_Message `protobuf_oneof:"message"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *Message) Reset()         { *m = Message{} }
+func (m *Message) String() string { return proto.CompactTextString(m) }
+func (*Message) ProtoMessage()    {}
+func (*Message) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{0}
+}
+
+func (m *Message) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Message.Unmarshal(m, b)
+}
+func (m *Message) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Message.Marshal(b, m, deterministic)
+}
+func (m *Message) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Message.Merge(m, src)
+}
+func (m *Message) XXX_Size() int {
+	return xxx_messageInfo_Message.Size(m)
+}
+func (m *Message) XXX_DiscardUnknown() {
+	xxx_messageInfo_Message.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Message proto.InternalMessageInfo
+
+type isMessage_Message interface {
+	isMessage_Message()
+}
+
+type Message_Request struct {
+	Request *Request `protobuf:"bytes,1,opt,name=request,proto3,oneof"`
+}
+
+type Message_Result struct {
+	Result *Result `protobuf:"bytes,2,opt,name=result,proto3,oneof"`
+}
+
+func (*Message_Request) isMessage_Message() {}
+
+func (*Message_Result) isMessage_Message() {}
+
+func (m *Message) GetMessage() isMessage_Message {
+	if m != nil {
+		return m.Message
+	}
+	return nil
+}
+
+func (m *Message) GetRequest() *Request {
+	if x, ok := m.GetMessage().(*Message_Request); ok {
+		return x.Request
+	}
+	return nil
+}
+
+func (m *Message) GetResult() *Result {
+	if x, ok := m.GetMessage().(*Message_Result); ok {
+		return x.Result
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Message) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*Message_Request)(nil),
+		(*Message_Result)(nil),
+	}
+}
+
+type Request struct {
+	// Types that are valid to be assigned to Request:
+	//	*Request_Create
+	//	*Request_Delete
+	//	*Request_Connect
+	Request              isRequest_Request `protobuf_oneof:"request"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *Request) Reset()         { *m = Request{} }
+func (m *Request) String() string { return proto.CompactTextString(m) }
+func (*Request) ProtoMessage()    {}
+func (*Request) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{1}
+}
+
+func (m *Request) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Request.Unmarshal(m, b)
+}
+func (m *Request) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Request.Marshal(b, m, deterministic)
+}
+func (m *Request) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Request.Merge(m, src)
+}
+func (m *Request) XXX_Size() int {
+	return xxx_messageInfo_Request.Size(m)
+}
+func (m *Request) XXX_DiscardUnknown() {
+	xxx_messageInfo_Request.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Request proto.InternalMessageInfo
+
+type isRequest_Request interface {
+	isRequest_Request()
+}
+
+type Request_Create struct {
+	Create *Create `protobuf:"bytes,1,opt,name=create,proto3,oneof"`
+}
+
+type Request_Delete struct {
+	Delete *Delete `protobuf:"bytes,2,opt,name=delete,proto3,oneof"`
+}
+
+type Request_Connect struct {
+	Connect *Connect `protobuf:"bytes,3,opt,name=connect,proto3,oneof"`
+}
+
+func (*Request_Create) isRequest_Request() {}
+
+func (*Request_Delete) isRequest_Request() {}
+
+func (*Request_Connect) isRequest_Request() {}
+
+func (m *Request) GetRequest() isRequest_Request {
+	if m != nil {
+		return m.Request
+	}
+	return nil
+}
+
+func (m *Request) GetCreate() *Create {
+	if x, ok := m.GetRequest().(*Request_Create); ok {
+		return x.Create
+	}
+	return nil
+}
+
+func (m *Request) GetDelete() *Delete {
+	if x, ok := m.GetRequest().(*Request_Delete); ok {
+		return x.Delete
+	}
+	return nil
+}
+
+func (m *Request) GetConnect() *Connect {
+	if x, ok := m.GetRequest().(*Request_Connect); ok {
+		return x.Connect
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Request) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*Request_Create)(nil),
+		(*Request_Delete)(nil),
+		(*Request_Connect)(nil),
+	}
+}
+
+type Connect struct {
+	Client               string   `protobuf:"bytes,1,opt,name=client,proto3" json:"client,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Connect) Reset()         { *m = Connect{} }
+func (m *Connect) String() string { return proto.CompactTextString(m) }
+func (*Connect) ProtoMessage()    {}
+func (*Connect) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{2}
+}
+
+func (m *Connect) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Connect.Unmarshal(m, b)
+}
+func (m *Connect) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Connect.Marshal(b, m, deterministic)
+}
+func (m *Connect) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Connect.Merge(m, src)
+}
+func (m *Connect) XXX_Size() int {
+	return xxx_messageInfo_Connect.Size(m)
+}
+func (m *Connect) XXX_DiscardUnknown() {
+	xxx_messageInfo_Connect.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Connect proto.InternalMessageInfo
+
+func (m *Connect) GetClient() string {
+	if m != nil {
+		return m.Client
+	}
+	return ""
+}
+
+type Create struct {
+	// Types that are valid to be assigned to CreateRequest:
+	//	*Create_Interfaces
+	//	*Create_RoutingInstances
+	CreateRequest        isCreate_CreateRequest `protobuf_oneof:"create_request"`
+	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
+	XXX_unrecognized     []byte                 `json:"-"`
+	XXX_sizecache        int32                  `json:"-"`
+}
+
+func (m *Create) Reset()         { *m = Create{} }
+func (m *Create) String() string { return proto.CompactTextString(m) }
+func (*Create) ProtoMessage()    {}
+func (*Create) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{3}
+}
+
+func (m *Create) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Create.Unmarshal(m, b)
+}
+func (m *Create) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Create.Marshal(b, m, deterministic)
+}
+func (m *Create) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Create.Merge(m, src)
+}
+func (m *Create) XXX_Size() int {
+	return xxx_messageInfo_Create.Size(m)
+}
+func (m *Create) XXX_DiscardUnknown() {
+	xxx_messageInfo_Create.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Create proto.InternalMessageInfo
+
+type isCreate_CreateRequest interface {
+	isCreate_CreateRequest()
+}
+
+type Create_Interfaces struct {
+	Interfaces *Interfaces `protobuf:"bytes,1,opt,name=interfaces,proto3,oneof"`
+}
+
+type Create_RoutingInstances struct {
+	RoutingInstances *RoutingInstances `protobuf:"bytes,2,opt,name=routingInstances,proto3,oneof"`
+}
+
+func (*Create_Interfaces) isCreate_CreateRequest() {}
+
+func (*Create_RoutingInstances) isCreate_CreateRequest() {}
+
+func (m *Create) GetCreateRequest() isCreate_CreateRequest {
+	if m != nil {
+		return m.CreateRequest
+	}
+	return nil
+}
+
+func (m *Create) GetInterfaces() *Interfaces {
+	if x, ok := m.GetCreateRequest().(*Create_Interfaces); ok {
+		return x.Interfaces
+	}
+	return nil
+}
+
+func (m *Create) GetRoutingInstances() *RoutingInstances {
+	if x, ok := m.GetCreateRequest().(*Create_RoutingInstances); ok {
+		return x.RoutingInstances
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Create) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*Create_Interfaces)(nil),
+		(*Create_RoutingInstances)(nil),
+	}
+}
+
+type Delete struct {
+	// Types that are valid to be assigned to DeleteRequest:
+	//	*Delete_Interfaces
+	//	*Delete_RoutingInstances
+	DeleteRequest        isDelete_DeleteRequest `protobuf_oneof:"delete_request"`
+	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
+	XXX_unrecognized     []byte                 `json:"-"`
+	XXX_sizecache        int32                  `json:"-"`
+}
+
+func (m *Delete) Reset()         { *m = Delete{} }
+func (m *Delete) String() string { return proto.CompactTextString(m) }
+func (*Delete) ProtoMessage()    {}
+func (*Delete) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{4}
+}
+
+func (m *Delete) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Delete.Unmarshal(m, b)
+}
+func (m *Delete) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Delete.Marshal(b, m, deterministic)
+}
+func (m *Delete) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Delete.Merge(m, src)
+}
+func (m *Delete) XXX_Size() int {
+	return xxx_messageInfo_Delete.Size(m)
+}
+func (m *Delete) XXX_DiscardUnknown() {
+	xxx_messageInfo_Delete.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Delete proto.InternalMessageInfo
+
+type isDelete_DeleteRequest interface {
+	isDelete_DeleteRequest()
+}
+
+type Delete_Interfaces struct {
+	Interfaces *Interfaces `protobuf:"bytes,1,opt,name=interfaces,proto3,oneof"`
+}
+
+type Delete_RoutingInstances struct {
+	RoutingInstances *RoutingInstances `protobuf:"bytes,2,opt,name=routingInstances,proto3,oneof"`
+}
+
+func (*Delete_Interfaces) isDelete_DeleteRequest() {}
+
+func (*Delete_RoutingInstances) isDelete_DeleteRequest() {}
+
+func (m *Delete) GetDeleteRequest() isDelete_DeleteRequest {
+	if m != nil {
+		return m.DeleteRequest
+	}
+	return nil
+}
+
+func (m *Delete) GetInterfaces() *Interfaces {
+	if x, ok := m.GetDeleteRequest().(*Delete_Interfaces); ok {
+		return x.Interfaces
+	}
+	return nil
+}
+
+func (m *Delete) GetRoutingInstances() *RoutingInstances {
+	if x, ok := m.GetDeleteRequest().(*Delete_RoutingInstances); ok {
+		return x.RoutingInstances
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Delete) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*Delete_Interfaces)(nil),
+		(*Delete_RoutingInstances)(nil),
+	}
+}
+
+type Interfaces struct {
+	Interface            []*Interface `protobuf:"bytes,1,rep,name=interface,proto3" json:"interface,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *Interfaces) Reset()         { *m = Interfaces{} }
+func (m *Interfaces) String() string { return proto.CompactTextString(m) }
+func (*Interfaces) ProtoMessage()    {}
+func (*Interfaces) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{5}
+}
+
+func (m *Interfaces) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Interfaces.Unmarshal(m, b)
+}
+func (m *Interfaces) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Interfaces.Marshal(b, m, deterministic)
+}
+func (m *Interfaces) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Interfaces.Merge(m, src)
+}
+func (m *Interfaces) XXX_Size() int {
+	return xxx_messageInfo_Interfaces.Size(m)
+}
+func (m *Interfaces) XXX_DiscardUnknown() {
+	xxx_messageInfo_Interfaces.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Interfaces proto.InternalMessageInfo
+
+func (m *Interfaces) GetInterface() []*Interface {
+	if m != nil {
+		return m.Interface
+	}
+	return nil
+}
+
 type Interface struct {
 	Name                 string     `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Ipv4                 string     `protobuf:"bytes,2,opt,name=ipv4,proto3" json:"ipv4,omitempty"`
@@ -41,7 +479,7 @@ func (m *Interface) Reset()         { *m = Interface{} }
 func (m *Interface) String() string { return proto.CompactTextString(m) }
 func (*Interface) ProtoMessage()    {}
 func (*Interface) Descriptor() ([]byte, []int) {
-	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{0}
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{6}
 }
 
 func (m *Interface) XXX_Unmarshal(b []byte) error {
@@ -111,51 +549,303 @@ func (m *Interface) GetVersion() int32 {
 	return 0
 }
 
-type Device struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Uuid                 string   `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+type RoutingInstances struct {
+	RoutingInstance      []*RoutingInstance `protobuf:"bytes,1,rep,name=routingInstance,proto3" json:"routingInstance,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
 }
 
-func (m *Device) Reset()         { *m = Device{} }
-func (m *Device) String() string { return proto.CompactTextString(m) }
-func (*Device) ProtoMessage()    {}
-func (*Device) Descriptor() ([]byte, []int) {
-	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{1}
+func (m *RoutingInstances) Reset()         { *m = RoutingInstances{} }
+func (m *RoutingInstances) String() string { return proto.CompactTextString(m) }
+func (*RoutingInstances) ProtoMessage()    {}
+func (*RoutingInstances) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{7}
 }
 
-func (m *Device) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Device.Unmarshal(m, b)
+func (m *RoutingInstances) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RoutingInstances.Unmarshal(m, b)
 }
-func (m *Device) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Device.Marshal(b, m, deterministic)
+func (m *RoutingInstances) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RoutingInstances.Marshal(b, m, deterministic)
 }
-func (m *Device) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Device.Merge(m, src)
+func (m *RoutingInstances) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RoutingInstances.Merge(m, src)
 }
-func (m *Device) XXX_Size() int {
-	return xxx_messageInfo_Device.Size(m)
+func (m *RoutingInstances) XXX_Size() int {
+	return xxx_messageInfo_RoutingInstances.Size(m)
 }
-func (m *Device) XXX_DiscardUnknown() {
-	xxx_messageInfo_Device.DiscardUnknown(m)
+func (m *RoutingInstances) XXX_DiscardUnknown() {
+	xxx_messageInfo_RoutingInstances.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Device proto.InternalMessageInfo
+var xxx_messageInfo_RoutingInstances proto.InternalMessageInfo
 
-func (m *Device) GetName() string {
+func (m *RoutingInstances) GetRoutingInstance() []*RoutingInstance {
+	if m != nil {
+		return m.RoutingInstance
+	}
+	return nil
+}
+
+type RoutingInstance struct {
+	Id                   int32            `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	RoutingProtocol      *RoutingProtocol `protobuf:"bytes,2,opt,name=routingProtocol,proto3" json:"routingProtocol,omitempty"`
+	Name                 string           `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *RoutingInstance) Reset()         { *m = RoutingInstance{} }
+func (m *RoutingInstance) String() string { return proto.CompactTextString(m) }
+func (*RoutingInstance) ProtoMessage()    {}
+func (*RoutingInstance) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{8}
+}
+
+func (m *RoutingInstance) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RoutingInstance.Unmarshal(m, b)
+}
+func (m *RoutingInstance) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RoutingInstance.Marshal(b, m, deterministic)
+}
+func (m *RoutingInstance) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RoutingInstance.Merge(m, src)
+}
+func (m *RoutingInstance) XXX_Size() int {
+	return xxx_messageInfo_RoutingInstance.Size(m)
+}
+func (m *RoutingInstance) XXX_DiscardUnknown() {
+	xxx_messageInfo_RoutingInstance.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RoutingInstance proto.InternalMessageInfo
+
+func (m *RoutingInstance) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *RoutingInstance) GetRoutingProtocol() *RoutingProtocol {
+	if m != nil {
+		return m.RoutingProtocol
+	}
+	return nil
+}
+
+func (m *RoutingInstance) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Device) GetUuid() string {
+type RoutingProtocol struct {
+	// Types that are valid to be assigned to Protocol:
+	//	*RoutingProtocol_Bgp
+	//	*RoutingProtocol_Ospf
+	Protocol             isRoutingProtocol_Protocol `protobuf_oneof:"Protocol"`
+	XXX_NoUnkeyedLiteral struct{}                   `json:"-"`
+	XXX_unrecognized     []byte                     `json:"-"`
+	XXX_sizecache        int32                      `json:"-"`
+}
+
+func (m *RoutingProtocol) Reset()         { *m = RoutingProtocol{} }
+func (m *RoutingProtocol) String() string { return proto.CompactTextString(m) }
+func (*RoutingProtocol) ProtoMessage()    {}
+func (*RoutingProtocol) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{9}
+}
+
+func (m *RoutingProtocol) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RoutingProtocol.Unmarshal(m, b)
+}
+func (m *RoutingProtocol) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RoutingProtocol.Marshal(b, m, deterministic)
+}
+func (m *RoutingProtocol) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RoutingProtocol.Merge(m, src)
+}
+func (m *RoutingProtocol) XXX_Size() int {
+	return xxx_messageInfo_RoutingProtocol.Size(m)
+}
+func (m *RoutingProtocol) XXX_DiscardUnknown() {
+	xxx_messageInfo_RoutingProtocol.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RoutingProtocol proto.InternalMessageInfo
+
+type isRoutingProtocol_Protocol interface {
+	isRoutingProtocol_Protocol()
+}
+
+type RoutingProtocol_Bgp struct {
+	Bgp *BGP `protobuf:"bytes,1,opt,name=bgp,proto3,oneof"`
+}
+
+type RoutingProtocol_Ospf struct {
+	Ospf *OSPF `protobuf:"bytes,2,opt,name=ospf,proto3,oneof"`
+}
+
+func (*RoutingProtocol_Bgp) isRoutingProtocol_Protocol() {}
+
+func (*RoutingProtocol_Ospf) isRoutingProtocol_Protocol() {}
+
+func (m *RoutingProtocol) GetProtocol() isRoutingProtocol_Protocol {
 	if m != nil {
-		return m.Uuid
+		return m.Protocol
 	}
-	return ""
+	return nil
+}
+
+func (m *RoutingProtocol) GetBgp() *BGP {
+	if x, ok := m.GetProtocol().(*RoutingProtocol_Bgp); ok {
+		return x.Bgp
+	}
+	return nil
+}
+
+func (m *RoutingProtocol) GetOspf() *OSPF {
+	if x, ok := m.GetProtocol().(*RoutingProtocol_Ospf); ok {
+		return x.Ospf
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*RoutingProtocol) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*RoutingProtocol_Bgp)(nil),
+		(*RoutingProtocol_Ospf)(nil),
+	}
+}
+
+type BGP struct {
+	Asn                  int32      `protobuf:"varint,1,opt,name=asn,proto3" json:"asn,omitempty"`
+	Source               *Interface `protobuf:"bytes,4,opt,name=source,proto3" json:"source,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *BGP) Reset()         { *m = BGP{} }
+func (m *BGP) String() string { return proto.CompactTextString(m) }
+func (*BGP) ProtoMessage()    {}
+func (*BGP) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{10}
+}
+
+func (m *BGP) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BGP.Unmarshal(m, b)
+}
+func (m *BGP) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BGP.Marshal(b, m, deterministic)
+}
+func (m *BGP) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGP.Merge(m, src)
+}
+func (m *BGP) XXX_Size() int {
+	return xxx_messageInfo_BGP.Size(m)
+}
+func (m *BGP) XXX_DiscardUnknown() {
+	xxx_messageInfo_BGP.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BGP proto.InternalMessageInfo
+
+func (m *BGP) GetAsn() int32 {
+	if m != nil {
+		return m.Asn
+	}
+	return 0
+}
+
+func (m *BGP) GetSource() *Interface {
+	if m != nil {
+		return m.Source
+	}
+	return nil
+}
+
+type BGP_Peers struct {
+	Address              []string `protobuf:"bytes,5,rep,name=address,proto3" json:"address,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *BGP_Peers) Reset()         { *m = BGP_Peers{} }
+func (m *BGP_Peers) String() string { return proto.CompactTextString(m) }
+func (*BGP_Peers) ProtoMessage()    {}
+func (*BGP_Peers) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{10, 0}
+}
+
+func (m *BGP_Peers) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BGP_Peers.Unmarshal(m, b)
+}
+func (m *BGP_Peers) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BGP_Peers.Marshal(b, m, deterministic)
+}
+func (m *BGP_Peers) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BGP_Peers.Merge(m, src)
+}
+func (m *BGP_Peers) XXX_Size() int {
+	return xxx_messageInfo_BGP_Peers.Size(m)
+}
+func (m *BGP_Peers) XXX_DiscardUnknown() {
+	xxx_messageInfo_BGP_Peers.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BGP_Peers proto.InternalMessageInfo
+
+func (m *BGP_Peers) GetAddress() []string {
+	if m != nil {
+		return m.Address
+	}
+	return nil
+}
+
+type OSPF struct {
+	Area                 int32    `protobuf:"varint,1,opt,name=area,proto3" json:"area,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *OSPF) Reset()         { *m = OSPF{} }
+func (m *OSPF) String() string { return proto.CompactTextString(m) }
+func (*OSPF) ProtoMessage()    {}
+func (*OSPF) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{11}
+}
+
+func (m *OSPF) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_OSPF.Unmarshal(m, b)
+}
+func (m *OSPF) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_OSPF.Marshal(b, m, deterministic)
+}
+func (m *OSPF) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OSPF.Merge(m, src)
+}
+func (m *OSPF) XXX_Size() int {
+	return xxx_messageInfo_OSPF.Size(m)
+}
+func (m *OSPF) XXX_DiscardUnknown() {
+	xxx_messageInfo_OSPF.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OSPF proto.InternalMessageInfo
+
+func (m *OSPF) GetArea() int32 {
+	if m != nil {
+		return m.Area
+	}
+	return 0
 }
 
 type Result struct {
@@ -172,7 +862,7 @@ func (m *Result) Reset()         { *m = Result{} }
 func (m *Result) String() string { return proto.CompactTextString(m) }
 func (*Result) ProtoMessage()    {}
 func (*Result) Descriptor() ([]byte, []int) {
-	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{2}
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{12}
 }
 
 func (m *Result) XXX_Unmarshal(b []byte) error {
@@ -221,82 +911,122 @@ func (m *Result) GetSuccess() bool {
 	return false
 }
 
-type Filter struct {
-	Parent               *Interface `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+type Device struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Uuid                 string   `protobuf:"bytes,2,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Filter) Reset()         { *m = Filter{} }
-func (m *Filter) String() string { return proto.CompactTextString(m) }
-func (*Filter) ProtoMessage()    {}
-func (*Filter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{3}
+func (m *Device) Reset()         { *m = Device{} }
+func (m *Device) String() string { return proto.CompactTextString(m) }
+func (*Device) ProtoMessage()    {}
+func (*Device) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bcbdd1ffbcbe4fbb, []int{13}
 }
 
-func (m *Filter) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Filter.Unmarshal(m, b)
+func (m *Device) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Device.Unmarshal(m, b)
 }
-func (m *Filter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Filter.Marshal(b, m, deterministic)
+func (m *Device) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Device.Marshal(b, m, deterministic)
 }
-func (m *Filter) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Filter.Merge(m, src)
+func (m *Device) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Device.Merge(m, src)
 }
-func (m *Filter) XXX_Size() int {
-	return xxx_messageInfo_Filter.Size(m)
+func (m *Device) XXX_Size() int {
+	return xxx_messageInfo_Device.Size(m)
 }
-func (m *Filter) XXX_DiscardUnknown() {
-	xxx_messageInfo_Filter.DiscardUnknown(m)
+func (m *Device) XXX_DiscardUnknown() {
+	xxx_messageInfo_Device.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Filter proto.InternalMessageInfo
+var xxx_messageInfo_Device proto.InternalMessageInfo
 
-func (m *Filter) GetParent() *Interface {
+func (m *Device) GetName() string {
 	if m != nil {
-		return m.Parent
+		return m.Name
 	}
-	return nil
+	return ""
+}
+
+func (m *Device) GetUuid() string {
+	if m != nil {
+		return m.Uuid
+	}
+	return ""
 }
 
 func init() {
+	proto.RegisterEnum("devicemanager.BGPType", BGPType_name, BGPType_value)
+	proto.RegisterType((*Message)(nil), "devicemanager.Message")
+	proto.RegisterType((*Request)(nil), "devicemanager.Request")
+	proto.RegisterType((*Connect)(nil), "devicemanager.Connect")
+	proto.RegisterType((*Create)(nil), "devicemanager.Create")
+	proto.RegisterType((*Delete)(nil), "devicemanager.Delete")
+	proto.RegisterType((*Interfaces)(nil), "devicemanager.Interfaces")
 	proto.RegisterType((*Interface)(nil), "devicemanager.Interface")
-	proto.RegisterType((*Device)(nil), "devicemanager.Device")
+	proto.RegisterType((*RoutingInstances)(nil), "devicemanager.RoutingInstances")
+	proto.RegisterType((*RoutingInstance)(nil), "devicemanager.RoutingInstance")
+	proto.RegisterType((*RoutingProtocol)(nil), "devicemanager.RoutingProtocol")
+	proto.RegisterType((*BGP)(nil), "devicemanager.BGP")
+	proto.RegisterType((*BGP_Peers)(nil), "devicemanager.BGP.Peers")
+	proto.RegisterType((*OSPF)(nil), "devicemanager.OSPF")
 	proto.RegisterType((*Result)(nil), "devicemanager.Result")
-	proto.RegisterType((*Filter)(nil), "devicemanager.Filter")
+	proto.RegisterType((*Device)(nil), "devicemanager.Device")
 }
 
 func init() { proto.RegisterFile("device_manager.proto", fileDescriptor_bcbdd1ffbcbe4fbb) }
 
 var fileDescriptor_bcbdd1ffbcbe4fbb = []byte{
-	// 406 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x53, 0x4d, 0x6f, 0xd4, 0x30,
-	0x10, 0xad, 0xbb, 0x6d, 0x9a, 0x0e, 0x2c, 0x45, 0x16, 0x48, 0x56, 0x4e, 0xab, 0x9c, 0x72, 0x21,
-	0x59, 0x2d, 0x55, 0x0f, 0x08, 0x71, 0x68, 0x57, 0x08, 0x24, 0xb8, 0xf8, 0xc8, 0x05, 0xb9, 0xc9,
-	0x90, 0x35, 0xe4, 0x4b, 0xb6, 0x93, 0x9f, 0xca, 0x4f, 0xe0, 0x77, 0x20, 0xdb, 0xd9, 0x94, 0xae,
-	0xba, 0x12, 0xda, 0x3d, 0x65, 0xe6, 0xe9, 0xbd, 0x37, 0xe3, 0x67, 0x07, 0x5e, 0x15, 0x38, 0xc8,
-	0x1c, 0xbf, 0xd7, 0xa2, 0x11, 0x25, 0xaa, 0xb4, 0x53, 0xad, 0x69, 0xe9, 0xdc, 0xa3, 0x23, 0x18,
-	0xff, 0x26, 0x70, 0xf9, 0xb9, 0x31, 0xa8, 0x7e, 0x88, 0x1c, 0x29, 0x85, 0xb3, 0x46, 0xd4, 0xc8,
-	0xc8, 0x82, 0x24, 0x97, 0xdc, 0xd5, 0x16, 0x93, 0xdd, 0x70, 0xcd, 0x4e, 0x3d, 0x66, 0xeb, 0x11,
-	0xbb, 0x61, 0xb3, 0x09, 0xbb, 0xa1, 0x4b, 0x08, 0x3a, 0xa1, 0xb0, 0x31, 0xec, 0x6c, 0x41, 0x92,
-	0x67, 0x2b, 0x96, 0x3e, 0x9a, 0x94, 0x4e, 0x53, 0xf8, 0xc8, 0xb3, 0x2e, 0x7d, 0x2f, 0x0b, 0x76,
-	0xee, 0x5d, 0x6c, 0x4d, 0xdf, 0x40, 0xe0, 0x65, 0x2c, 0x70, 0x2e, 0xaf, 0x77, 0x5c, 0xd6, 0xae,
-	0xe3, 0x23, 0x89, 0x32, 0xb8, 0x18, 0x50, 0x69, 0xd9, 0x36, 0xec, 0x62, 0x41, 0x92, 0x73, 0xbe,
-	0x6d, 0xe3, 0x25, 0x04, 0x9e, 0xbb, 0xef, 0x50, 0x6e, 0xf4, 0xe9, 0xc3, 0xe8, 0xf8, 0x27, 0x04,
-	0x1c, 0x75, 0x5f, 0x19, 0x1a, 0x41, 0xa8, 0x30, 0x47, 0x39, 0x60, 0xe1, 0x54, 0x21, 0x9f, 0x7a,
-	0x3b, 0x51, 0x74, 0x5d, 0x25, 0xd1, 0x8b, 0x43, 0xbe, 0x6d, 0xe9, 0x4b, 0x98, 0xd5, 0xba, 0x1c,
-	0x33, 0xb1, 0xa5, 0xe5, 0xea, 0x3e, 0xcf, 0x51, 0x6b, 0x97, 0x49, 0xc8, 0xb7, 0x6d, 0xfc, 0x0e,
-	0x82, 0x8f, 0xb2, 0x32, 0xa8, 0xfe, 0x89, 0x8d, 0xfc, 0x5f, 0x6c, 0xab, 0x3f, 0x33, 0x98, 0xfb,
-	0xa3, 0x7d, 0xf5, 0x1c, 0x7a, 0x0b, 0x73, 0x8e, 0xa2, 0x78, 0xb8, 0xc7, 0xbd, 0x26, 0xd1, 0x6e,
-	0x9e, 0xfe, 0xc4, 0xf1, 0x09, 0xbd, 0x83, 0x17, 0x5f, 0xa4, 0x36, 0x13, 0x53, 0xd3, 0x5d, 0xaa,
-	0x5f, 0x38, 0xda, 0xeb, 0x1d, 0x9f, 0xd0, 0x4f, 0x70, 0x75, 0xa7, 0x50, 0x18, 0x3c, 0x66, 0x95,
-	0x84, 0x2c, 0x09, 0x5d, 0xc3, 0xd5, 0x1a, 0x2b, 0x3c, 0xce, 0x89, 0x7e, 0x80, 0xe7, 0x7e, 0x9f,
-	0xf1, 0x29, 0x3c, 0xfd, 0x9a, 0xa2, 0xa7, 0x61, 0xaf, 0xf7, 0x5b, 0x1c, 0xa8, 0x7f, 0x0f, 0x60,
-	0x2f, 0xe6, 0x30, 0xf5, 0xed, 0xf5, 0xb7, 0x55, 0x29, 0xcd, 0xa6, 0xbf, 0x4f, 0xf3, 0xb6, 0xce,
-	0x6a, 0x99, 0x6f, 0x04, 0x56, 0x1b, 0x6c, 0x7e, 0x61, 0x95, 0x15, 0x75, 0x53, 0x66, 0x8f, 0x74,
-	0x99, 0xfb, 0xbf, 0xf5, 0x7d, 0xe0, 0xbe, 0x6f, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0x4a, 0x08,
-	0xc8, 0xba, 0xff, 0x03, 0x00, 0x00,
+	// 731 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x55, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0xb6, 0xf3, 0x9f, 0x29, 0x6d, 0xa3, 0x05, 0x2a, 0x93, 0x03, 0xa4, 0x7b, 0x40, 0xe1, 0x40,
+	0x52, 0x85, 0xaa, 0x17, 0x4e, 0xa4, 0x7f, 0xa9, 0x44, 0x4b, 0xb4, 0x20, 0x81, 0x10, 0x52, 0xe5,
+	0xda, 0xd3, 0xd4, 0xe0, 0xd8, 0x66, 0xd7, 0x8e, 0xd4, 0x13, 0xaf, 0xc0, 0x53, 0x70, 0xe0, 0x81,
+	0x78, 0x1e, 0xb4, 0x3f, 0x76, 0x5a, 0x97, 0xc0, 0x95, 0x53, 0x76, 0x76, 0xbe, 0x99, 0xf9, 0xe6,
+	0x9b, 0xc9, 0x1a, 0x1e, 0xf8, 0xb8, 0x08, 0x3c, 0x3c, 0x9f, 0xbb, 0x91, 0x3b, 0x43, 0x3e, 0x48,
+	0x78, 0x9c, 0xc6, 0x64, 0x5d, 0xdf, 0x9a, 0x4b, 0x7a, 0x0d, 0xcd, 0x53, 0x14, 0xc2, 0x9d, 0x21,
+	0x19, 0x41, 0x93, 0xe3, 0xd7, 0x0c, 0x45, 0xea, 0xd8, 0x3d, 0xbb, 0xbf, 0x36, 0xda, 0x1a, 0xdc,
+	0xc2, 0x0e, 0x98, 0xf6, 0x4e, 0x2c, 0x96, 0x03, 0xc9, 0x10, 0x1a, 0x1c, 0x45, 0x16, 0xa6, 0x4e,
+	0x45, 0x85, 0x3c, 0xbc, 0x13, 0x22, 0x9d, 0x13, 0x8b, 0x19, 0xd8, 0xb8, 0x0d, 0xcd, 0xb9, 0xae,
+	0x47, 0x7f, 0xda, 0xd0, 0x64, 0xcb, 0x3c, 0x1e, 0x47, 0x37, 0x45, 0x53, 0xba, 0x9c, 0x67, 0x5f,
+	0x39, 0x65, 0x1e, 0x0d, 0x93, 0x01, 0x3e, 0x86, 0x98, 0xe2, 0x8a, 0xc2, 0x07, 0xca, 0x29, 0x03,
+	0x34, 0x4c, 0x76, 0xe7, 0xc5, 0x51, 0x84, 0x5e, 0xea, 0x54, 0xff, 0xd8, 0xdd, 0xbe, 0xf6, 0xca,
+	0xee, 0x0c, 0x50, 0x92, 0x35, 0x8d, 0xd2, 0x6d, 0x68, 0x1a, 0x00, 0xd9, 0x82, 0x86, 0x17, 0x06,
+	0x18, 0x69, 0x99, 0xda, 0xcc, 0x58, 0xf4, 0x87, 0x0d, 0x0d, 0xcd, 0x93, 0xbc, 0x04, 0x08, 0xa2,
+	0x14, 0xf9, 0xa5, 0xeb, 0xa1, 0x30, 0x2d, 0x3d, 0x2a, 0xd5, 0x3b, 0x29, 0x00, 0x13, 0x8b, 0xdd,
+	0x80, 0x93, 0x53, 0xe8, 0xf0, 0x38, 0x4b, 0x83, 0x68, 0x76, 0x12, 0x89, 0xd4, 0x8d, 0x64, 0x0a,
+	0xdd, 0xe4, 0x93, 0xb2, 0xba, 0x25, 0xd8, 0xc4, 0x62, 0x77, 0x42, 0xc7, 0x1d, 0xd8, 0xd0, 0x9a,
+	0x9d, 0xe7, 0xbd, 0x48, 0xa2, 0x5a, 0x9f, 0xff, 0x8d, 0xa8, 0x9e, 0x55, 0x41, 0xf4, 0x00, 0x60,
+	0x59, 0x9c, 0xec, 0x41, 0xbb, 0x28, 0xee, 0xd8, 0xbd, 0x6a, 0x7f, 0x6d, 0xe4, 0xac, 0xa2, 0xca,
+	0x96, 0x50, 0xfa, 0xcb, 0x86, 0x76, 0xe1, 0x20, 0x04, 0x6a, 0x91, 0x3b, 0x47, 0x33, 0x3b, 0x75,
+	0x96, 0x77, 0x41, 0xb2, 0xd8, 0x55, 0xe4, 0xdb, 0x4c, 0x9d, 0xcd, 0xdd, 0x9e, 0x5a, 0x16, 0x7d,
+	0xb7, 0x47, 0x76, 0xa0, 0x91, 0xb8, 0x5c, 0x4e, 0xbe, 0xa6, 0xda, 0x5c, 0x5d, 0xde, 0xe0, 0x64,
+	0x96, 0x2c, 0x0b, 0x7c, 0xa7, 0xae, 0xb3, 0xc8, 0x33, 0x79, 0x2e, 0x57, 0x57, 0x86, 0x39, 0x8d,
+	0x15, 0xab, 0x2b, 0x2d, 0x66, 0x40, 0xc4, 0x81, 0xe6, 0x02, 0xb9, 0x08, 0xe2, 0xc8, 0x69, 0xf6,
+	0xec, 0x7e, 0x9d, 0xe5, 0x26, 0xfd, 0x04, 0x9d, 0xb2, 0xb0, 0x64, 0x02, 0x9b, 0x25, 0x61, 0x8d,
+	0x54, 0x8f, 0xff, 0x3e, 0x12, 0x56, 0x0e, 0xa3, 0xdf, 0x60, 0xb3, 0x84, 0x21, 0x1b, 0x50, 0x09,
+	0x7c, 0xa5, 0x5c, 0x9d, 0x55, 0x02, 0xff, 0x46, 0xb1, 0xa9, 0x7c, 0x5b, 0xbc, 0x38, 0x34, 0xf3,
+	0x5f, 0x51, 0x2c, 0x47, 0xb1, 0x72, 0x58, 0x31, 0x95, 0xea, 0x72, 0x2a, 0x34, 0x29, 0x08, 0x14,
+	0xb0, 0xa7, 0x50, 0xbd, 0x98, 0x25, 0x66, 0x4f, 0x49, 0xa9, 0xc8, 0xf8, 0x78, 0x3a, 0xb1, 0x98,
+	0x04, 0x90, 0x67, 0x50, 0x8b, 0x45, 0x72, 0x69, 0xd8, 0xdc, 0x2f, 0x01, 0xdf, 0xbc, 0x9d, 0x1e,
+	0x4d, 0x2c, 0xa6, 0x20, 0x63, 0x80, 0x56, 0x9e, 0x9e, 0x7e, 0xb7, 0xa1, 0x3a, 0x3e, 0x9e, 0x92,
+	0x0e, 0x54, 0x5d, 0x11, 0x99, 0x46, 0xe5, 0x51, 0x4e, 0x5e, 0xc4, 0x19, 0xf7, 0xf0, 0xdf, 0x93,
+	0xd7, 0xb8, 0xee, 0x36, 0xd4, 0xa7, 0x88, 0x5c, 0xc8, 0xf9, 0xb9, 0xbe, 0xcf, 0x51, 0x08, 0xa7,
+	0xde, 0xab, 0xf6, 0xdb, 0x2c, 0x37, 0x29, 0x85, 0x5a, 0x7a, 0x9d, 0x20, 0xb9, 0x07, 0xad, 0x93,
+	0xb3, 0x77, 0x87, 0xec, 0xec, 0xd5, 0xeb, 0x8e, 0x25, 0xad, 0xc3, 0x0f, 0xc6, 0xb2, 0x69, 0x17,
+	0x6a, 0x92, 0xae, 0x14, 0xc8, 0xe5, 0xe8, 0x1a, 0x4e, 0xea, 0x4c, 0x3f, 0x43, 0x43, 0xbf, 0xaf,
+	0xa4, 0x0b, 0x2d, 0x8e, 0x1e, 0x06, 0x0b, 0xd4, 0xe3, 0x69, 0xb1, 0xc2, 0x56, 0xf5, 0x93, 0x24,
+	0x0c, 0xd0, 0x57, 0x72, 0xb4, 0x58, 0x6e, 0xca, 0x36, 0xe7, 0x62, 0x66, 0x34, 0x97, 0x47, 0x89,
+	0x15, 0x99, 0xe7, 0x49, 0xae, 0x35, 0x8d, 0x35, 0x26, 0xdd, 0x91, 0x4f, 0x86, 0xda, 0xc7, 0x15,
+	0x7f, 0x20, 0xb5, 0xe6, 0x95, 0xe5, 0x9a, 0x8f, 0xde, 0xc3, 0xba, 0x8e, 0x38, 0xd5, 0x1a, 0x91,
+	0x23, 0xd8, 0xc8, 0xbf, 0x20, 0x6e, 0xe4, 0x87, 0xc8, 0x49, 0xf9, 0x09, 0x36, 0x5f, 0xa2, 0xee,
+	0x8a, 0x7b, 0x6a, 0xf5, 0xed, 0x1d, 0x7b, 0xbc, 0xfb, 0x71, 0x34, 0x0b, 0xd2, 0xab, 0xec, 0x62,
+	0xe0, 0xc5, 0xf3, 0xe1, 0x3c, 0xf0, 0xae, 0x5c, 0x0c, 0xaf, 0x30, 0xfa, 0x82, 0xe1, 0xd0, 0x9f,
+	0x47, 0xb3, 0xe1, 0xad, 0xe0, 0xa1, 0xfa, 0xec, 0x89, 0x8b, 0x86, 0xfa, 0x7d, 0xf1, 0x3b, 0x00,
+	0x00, 0xff, 0xff, 0x1e, 0x3f, 0x0f, 0x5b, 0x16, 0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -311,13 +1041,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type DeviceManagerClient interface {
-	ReadInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error)
-	ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (*Interface, error)
-	CreateInterface(ctx context.Context, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error)
-	DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error)
-	CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
-	DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
-	ReadDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error)
+	RequestHandler(ctx context.Context, opts ...grpc.CallOption) (DeviceManager_RequestHandlerClient, error)
 }
 
 type deviceManagerClient struct {
@@ -328,299 +1052,88 @@ func NewDeviceManagerClient(cc *grpc.ClientConn) DeviceManagerClient {
 	return &deviceManagerClient{cc}
 }
 
-func (c *deviceManagerClient) ReadInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
-	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/ReadInterface", in, out, opts...)
+func (c *deviceManagerClient) RequestHandler(ctx context.Context, opts ...grpc.CallOption) (DeviceManager_RequestHandlerClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[0], "/devicemanager.DeviceManager/RequestHandler", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
-}
-
-func (c *deviceManagerClient) ListInterfaces(ctx context.Context, in *Filter, opts ...grpc.CallOption) (*Interface, error) {
-	out := new(Interface)
-	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/ListInterfaces", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *deviceManagerClient) CreateInterface(ctx context.Context, opts ...grpc.CallOption) (DeviceManager_CreateInterfaceClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_DeviceManager_serviceDesc.Streams[0], "/devicemanager.DeviceManager/CreateInterface", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &deviceManagerCreateInterfaceClient{stream}
+	x := &deviceManagerRequestHandlerClient{stream}
 	return x, nil
 }
 
-type DeviceManager_CreateInterfaceClient interface {
-	Send(*Interface) error
-	Recv() (*Result, error)
+type DeviceManager_RequestHandlerClient interface {
+	Send(*Message) error
+	Recv() (*Message, error)
 	grpc.ClientStream
 }
 
-type deviceManagerCreateInterfaceClient struct {
+type deviceManagerRequestHandlerClient struct {
 	grpc.ClientStream
 }
 
-func (x *deviceManagerCreateInterfaceClient) Send(m *Interface) error {
+func (x *deviceManagerRequestHandlerClient) Send(m *Message) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *deviceManagerCreateInterfaceClient) Recv() (*Result, error) {
-	m := new(Result)
+func (x *deviceManagerRequestHandlerClient) Recv() (*Message, error) {
+	m := new(Message)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *deviceManagerClient) DeleteInterface(ctx context.Context, in *Interface, opts ...grpc.CallOption) (*Result, error) {
-	out := new(Result)
-	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/DeleteInterface", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *deviceManagerClient) CreateDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error) {
-	out := new(Device)
-	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/CreateDevice", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *deviceManagerClient) DeleteDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error) {
-	out := new(Device)
-	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/DeleteDevice", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *deviceManagerClient) ReadDevice(ctx context.Context, in *Device, opts ...grpc.CallOption) (*Device, error) {
-	out := new(Device)
-	err := c.cc.Invoke(ctx, "/devicemanager.DeviceManager/ReadDevice", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // DeviceManagerServer is the server API for DeviceManager service.
 type DeviceManagerServer interface {
-	ReadInterface(context.Context, *Interface) (*Result, error)
-	ListInterfaces(context.Context, *Filter) (*Interface, error)
-	CreateInterface(DeviceManager_CreateInterfaceServer) error
-	DeleteInterface(context.Context, *Interface) (*Result, error)
-	CreateDevice(context.Context, *Device) (*Device, error)
-	DeleteDevice(context.Context, *Device) (*Device, error)
-	ReadDevice(context.Context, *Device) (*Device, error)
+	RequestHandler(DeviceManager_RequestHandlerServer) error
 }
 
 // UnimplementedDeviceManagerServer can be embedded to have forward compatible implementations.
 type UnimplementedDeviceManagerServer struct {
 }
 
-func (*UnimplementedDeviceManagerServer) ReadInterface(ctx context.Context, req *Interface) (*Result, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReadInterface not implemented")
-}
-func (*UnimplementedDeviceManagerServer) ListInterfaces(ctx context.Context, req *Filter) (*Interface, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListInterfaces not implemented")
-}
-func (*UnimplementedDeviceManagerServer) CreateInterface(srv DeviceManager_CreateInterfaceServer) error {
-	return status.Errorf(codes.Unimplemented, "method CreateInterface not implemented")
-}
-func (*UnimplementedDeviceManagerServer) DeleteInterface(ctx context.Context, req *Interface) (*Result, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteInterface not implemented")
-}
-func (*UnimplementedDeviceManagerServer) CreateDevice(ctx context.Context, req *Device) (*Device, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
-}
-func (*UnimplementedDeviceManagerServer) DeleteDevice(ctx context.Context, req *Device) (*Device, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
-}
-func (*UnimplementedDeviceManagerServer) ReadDevice(ctx context.Context, req *Device) (*Device, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReadDevice not implemented")
+func (*UnimplementedDeviceManagerServer) RequestHandler(srv DeviceManager_RequestHandlerServer) error {
+	return status.Errorf(codes.Unimplemented, "method RequestHandler not implemented")
 }
 
 func RegisterDeviceManagerServer(s *grpc.Server, srv DeviceManagerServer) {
 	s.RegisterService(&_DeviceManager_serviceDesc, srv)
 }
 
-func _DeviceManager_ReadInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Interface)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeviceManagerServer).ReadInterface(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/devicemanager.DeviceManager/ReadInterface",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceManagerServer).ReadInterface(ctx, req.(*Interface))
-	}
-	return interceptor(ctx, in, info, handler)
+func _DeviceManager_RequestHandler_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(DeviceManagerServer).RequestHandler(&deviceManagerRequestHandlerServer{stream})
 }
 
-func _DeviceManager_ListInterfaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Filter)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeviceManagerServer).ListInterfaces(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/devicemanager.DeviceManager/ListInterfaces",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceManagerServer).ListInterfaces(ctx, req.(*Filter))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DeviceManager_CreateInterface_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(DeviceManagerServer).CreateInterface(&deviceManagerCreateInterfaceServer{stream})
-}
-
-type DeviceManager_CreateInterfaceServer interface {
-	Send(*Result) error
-	Recv() (*Interface, error)
+type DeviceManager_RequestHandlerServer interface {
+	Send(*Message) error
+	Recv() (*Message, error)
 	grpc.ServerStream
 }
 
-type deviceManagerCreateInterfaceServer struct {
+type deviceManagerRequestHandlerServer struct {
 	grpc.ServerStream
 }
 
-func (x *deviceManagerCreateInterfaceServer) Send(m *Result) error {
+func (x *deviceManagerRequestHandlerServer) Send(m *Message) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *deviceManagerCreateInterfaceServer) Recv() (*Interface, error) {
-	m := new(Interface)
+func (x *deviceManagerRequestHandlerServer) Recv() (*Message, error) {
+	m := new(Message)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func _DeviceManager_DeleteInterface_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Interface)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeviceManagerServer).DeleteInterface(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/devicemanager.DeviceManager/DeleteInterface",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceManagerServer).DeleteInterface(ctx, req.(*Interface))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DeviceManager_CreateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Device)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeviceManagerServer).CreateDevice(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/devicemanager.DeviceManager/CreateDevice",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceManagerServer).CreateDevice(ctx, req.(*Device))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DeviceManager_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Device)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeviceManagerServer).DeleteDevice(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/devicemanager.DeviceManager/DeleteDevice",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceManagerServer).DeleteDevice(ctx, req.(*Device))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DeviceManager_ReadDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Device)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeviceManagerServer).ReadDevice(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/devicemanager.DeviceManager/ReadDevice",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceManagerServer).ReadDevice(ctx, req.(*Device))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _DeviceManager_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "devicemanager.DeviceManager",
 	HandlerType: (*DeviceManagerServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "ReadInterface",
-			Handler:    _DeviceManager_ReadInterface_Handler,
-		},
-		{
-			MethodName: "ListInterfaces",
-			Handler:    _DeviceManager_ListInterfaces_Handler,
-		},
-		{
-			MethodName: "DeleteInterface",
-			Handler:    _DeviceManager_DeleteInterface_Handler,
-		},
-		{
-			MethodName: "CreateDevice",
-			Handler:    _DeviceManager_CreateDevice_Handler,
-		},
-		{
-			MethodName: "DeleteDevice",
-			Handler:    _DeviceManager_DeleteDevice_Handler,
-		},
-		{
-			MethodName: "ReadDevice",
-			Handler:    _DeviceManager_ReadDevice_Handler,
-		},
-	},
+	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "CreateInterface",
-			Handler:       _DeviceManager_CreateInterface_Handler,
+			StreamName:    "RequestHandler",
+			Handler:       _DeviceManager_RequestHandler_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},
